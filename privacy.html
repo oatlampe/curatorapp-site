@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curator — Privacy Policy</title>
+  <style>
+    :root {
+      --bg: #111;
+      --surface: #1a1a1a;
+      --text: #e0dcd4;
+      --text-muted: #9a9590;
+      --accent: #c9a84c;
+      --border: #2a2724;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1.5rem 4rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+    .app-name {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .effective {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin: 2rem 0 0.75rem;
+    }
+    p { margin-bottom: 1rem; }
+    a { color: var(--accent); }
+    ul {
+      margin: 0.5rem 0 1rem 1.5rem;
+    }
+    li { margin-bottom: 0.4rem; }
+    .highlight {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.92rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      color: var(--accent);
+      font-weight: normal;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .lang-links {
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .lang-links a {
+      color: var(--text-muted);
+      margin: 0 0.5rem;
+    }
+    .lang-links a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="app-name">Curator — Photo Manager</p>
+<p class="effective">Effective date: 1 April 2026</p>
+
+<!-- <p class="lang-links">Also available in: <a href="privacy-fr.html">Français</a> · <a href="privacy-de.html">Deutsch</a></p> -->
+
+<p>Curator is built around a simple principle: your photos stay on your device. This policy explains exactly what data the app accesses, what leaves your device, and what doesn't.</p>
+
+<h2>Who we are</h2>
+<p>Curator is developed by Oscar [your surname], based in Switzerland. For privacy-related questions, you can reach us at <a href="mailto:privacy@[yourdomain].com">privacy@[yourdomain].com</a>.</p>
+
+<h2>What the app accesses on your device</h2>
+
+<div class="highlight">
+  <strong>Your photos and metadata</strong> — Curator reads your photo library (via Apple's PhotoKit framework) to detect duplicates, find similar photos, and help you create albums. All analysis — including AI-powered image comparison using a CLIP neural network and perceptual hashing — runs entirely on your device. No photos, thumbnails, image data, or metadata are ever transmitted off your device.
+</div>
+
+<p>When you publish an album, Curator writes it to your iOS Photos library using PhotoKit. This stays on your device (unless you separately sync your photo library to iCloud — that's between you and Apple).</p>
+
+<h2>What data leaves your device</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Purpose</th>
+      <th>Recipient</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Anonymous device identifier</td>
+      <td>Purchase management and receipt validation</td>
+      <td>RevenueCat</td>
+    </tr>
+    <tr>
+      <td>Purchase receipt (via Apple)</td>
+      <td>Verify your one-time purchase</td>
+      <td>Apple / RevenueCat</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>RevenueCat is our in-app purchase provider. It receives a device identifier and purchase receipt to manage your unlock status. RevenueCat does not receive any photo data, usage behaviour, or personal information. Their privacy policy is available at <a href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener">revenuecat.com/privacy</a>.</p>
+
+<h2>What we do not collect</h2>
+<ul>
+  <li>No analytics or usage tracking</li>
+  <li>No crash reporting</li>
+  <li>No advertising identifiers or ad networks</li>
+  <li>No user accounts, emails, or personal profiles</li>
+  <li>No server-side storage of any kind — we don't operate servers</li>
+</ul>
+
+<h2>On-device data storage</h2>
+<p>Curator stores scan results, album drafts, and your review decisions locally on your device. This data is used to avoid re-scanning your library each time you open the app. It never leaves your device and is removed if you delete the app.</p>
+
+<h2>Children's privacy</h2>
+<p>Curator does not collect personal information from anyone, including children. The app does not include age-restricted content.</p>
+
+<h2>Your rights under GDPR and Swiss data protection law</h2>
+<p>Because Curator does not collect or store personal data on any server, most data-subject rights (access, deletion, portability) are already satisfied by design — your data is on your device, under your control.</p>
+<p>For the limited data processed by RevenueCat on our behalf, you have the right to request access, correction, or deletion. Contact us at the email above and we will facilitate your request with RevenueCat.</p>
+<p>You also have the right to lodge a complaint with the Swiss Federal Data Protection and Information Commissioner (FDPIC) or your local supervisory authority.</p>
+
+<h2>Third-party services</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Purpose</th>
+      <th>Data shared</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Apple (StoreKit)</td>
+      <td>In-app purchase processing</td>
+      <td>Purchase receipt</td>
+    </tr>
+    <tr>
+      <td>RevenueCat</td>
+      <td>Purchase management and restore</td>
+      <td>Device identifier, purchase receipt</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Changes to this policy</h2>
+<p>If we change this policy, we'll update the effective date at the top. For significant changes, we'll note what changed here. The current version is always available at this URL.</p>
+
+<div class="footer">
+  <p>Last updated: 1 April 2026</p>
+  <p><a href="terms.html">Terms of Use</a></p>
+</div>
+
+</body>
+</html>
