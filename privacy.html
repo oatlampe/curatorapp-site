@@ -84,36 +84,36 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
-    .lang-links {
-      margin-bottom: 2rem;
+    .home-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
       font-size: 0.85rem;
       color: var(--text-muted);
+      text-decoration: none;
     }
-    .lang-links a {
-      color: var(--text-muted);
-      margin: 0 0.5rem;
-    }
-    .lang-links a:hover { color: var(--accent); }
+    .home-link:hover { color: var(--accent); }
   </style>
 </head>
 <body>
 
+<a href="/" class="home-link">← Curator</a>
+
 <h1>Privacy Policy</h1>
 <p class="app-name">Curator — Photo Manager</p>
-<p class="effective">Effective date: 1 April 2026</p>
-
-<!-- <p class="lang-links">Also available in: <a href="privacy-fr.html">Français</a> · <a href="privacy-de.html">Deutsch</a></p> -->
+<p class="effective">Effective date: 2 April 2026</p>
 
 <p>Curator is built around a simple principle: your photos stay on your device. This policy explains exactly what data the app accesses, what leaves your device, and what doesn't.</p>
 
 <h2>Who we are</h2>
-<p>Curator is developed by Oscar [your surname], based in Switzerland. For privacy-related questions, you can reach us at <a href="mailto:privacy@[yourdomain].com">privacy@[yourdomain].com</a>.</p>
+<p>Curator is developed by Oscar Lampe, based in Switzerland. For privacy-related questions, you can reach us at <a href="mailto:support@curatorapp.ch">support@curatorapp.ch</a>.</p>
 
 <h2>What the app accesses on your device</h2>
 
 <div class="highlight">
-  <strong>Your photos and metadata</strong> — Curator reads your photo library (via Apple's PhotoKit framework) to detect duplicates, find similar photos, and help you create albums. All analysis — including AI-powered image comparison using a CLIP neural network and perceptual hashing — runs entirely on your device. No photos, thumbnails, image data, or metadata are ever transmitted off your device.
+  <strong>Your photos and metadata</strong> — Curator reads your photo library (via Apple's PhotoKit framework) to detect duplicates, find similar photos, and help you create albums. All analysis — including AI-powered image comparison using a CLIP neural network and perceptual hashing — runs entirely on your device. No photos, thumbnails, image data, or metadata are ever transmitted off your device by Curator.
 </div>
+
+<p>If you use iCloud Photo Library, iOS may fetch photos from iCloud to your device so Curator can analyse them. This is standard iOS behaviour — Curator itself does not communicate with iCloud or any other cloud service.</p>
 
 <p>When you publish an album, Curator writes it to your iOS Photos library using PhotoKit. This stays on your device (unless you separately sync your photo library to iCloud — that's between you and Apple).</p>
 
@@ -190,8 +190,8 @@
 <p>If we change this policy, we'll update the effective date at the top. For significant changes, we'll note what changed here. The current version is always available at this URL.</p>
 
 <div class="footer">
-  <p>Last updated: 1 April 2026</p>
-  <p><a href="terms.html">Terms of Use</a></p>
+  <p>Last updated: 2 April 2026</p>
+  <p><a href="terms.html">Terms of Use</a> · <a href="/">Home</a></p>
 </div>
 
 </body>

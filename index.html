@@ -3,63 +3,231 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curator — Legal</title>
+  <title>Curator — Photo Manager</title>
+  <meta name="description" content="Declutter your photo library and build the albums you've always wanted. All AI processing stays on your device.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #111;
+      --bg: #0a0a0a;
+      --surface: #141210;
       --text: #e0dcd4;
-      --text-muted: #9a9590;
+      --text-muted: #8a857e;
       --accent: #c9a84c;
+      --accent-dim: rgba(201, 168, 76, 0.15);
       --border: #2a2724;
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Subtle radial glow behind icon */
+    .hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
+      padding: 6rem 2rem 3rem;
+      position: relative;
+      width: 100%;
+      flex: 1;
     }
-    h1 {
-      font-size: 2rem;
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .icon {
+      width: 160px;
+      height: 160px;
+      border-radius: 32px;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+      box-shadow:
+        0 0 0 1px rgba(201, 168, 76, 0.1),
+        0 8px 40px rgba(0, 0, 0, 0.5),
+        0 2px 12px rgba(201, 168, 76, 0.08);
+    }
+
+    .app-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pillars {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
       color: var(--accent);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.03em;
-    }
-    .subtitle {
-      color: var(--text-muted);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
       margin-bottom: 2.5rem;
-      font-size: 0.95rem;
+      position: relative;
+      z-index: 1;
     }
-    .links {
-      display: flex;
-      gap: 2rem;
+
+    .tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 460px;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
     }
-    a {
+
+    .tagline em {
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .privacy-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 380px;
+      line-height: 1.6;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Divider */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact a {
       color: var(--accent);
       text-decoration: none;
-      font-size: 1.1rem;
-      padding: 0.6rem 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      transition: border-color 0.2s;
     }
-    a:hover {
-      border-color: var(--accent);
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .hero {
+        padding: 4rem 1.5rem 2rem;
+      }
+      .icon {
+        width: 120px;
+        height: 120px;
+        border-radius: 24px;
+        margin-bottom: 1.5rem;
+      }
+      .app-name {
+        font-size: 2.2rem;
+      }
+      .pillars {
+        font-size: 0.85rem;
+      }
+      .tagline {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Curator</h1>
-  <p class="subtitle">Photo Manager</p>
-  <div class="links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Use</a>
-  </div>
+
+  <main class="hero">
+    <img src="icon.png" alt="Curator app icon" class="icon">
+
+    <h1 class="app-name">Curator</h1>
+
+    <p class="pillars">Clean · Curate · Print</p>
+
+    <p class="tagline">
+      Get on top of your photo library.<br>
+      <em>Finally make those albums you've always wanted.</em>
+    </p>
+
+    <p class="privacy-note">
+      All AI processing happens on your device.<br>
+      Your photos never leave your phone.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="contact">
+      Questions? <a href="mailto:support@curatorapp.ch">support@curatorapp.ch</a>
+    </p>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </footer>
+
 </body>
 </html>
