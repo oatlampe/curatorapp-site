@@ -95,9 +95,8 @@
       margin-bottom: 2rem;
       position: relative;
       z-index: 1;
-      box-shadow:
-        0 8px 40px rgba(0, 0, 0, 0.6),
-        0 2px 16px rgba(201, 168, 76, 0.1);
+      /* SVG with transparency — no box-shadow needed */
+      filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
     }
 
     .app-name {
@@ -227,7 +226,7 @@
   <div class="bg-overlay"></div>
 
   <main class="hero">
-    <img src="icon.png" alt="Curator app icon" class="icon">
+    <img src="icon.svg" alt="Curator app icon" class="icon">
 
     <h1 class="app-name">Curator</h1>
 
