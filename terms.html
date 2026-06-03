@@ -4,138 +4,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curator — Terms of Use</title>
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* ===== DESIGN TOKENS (shared across the site) ===== */
     :root {
-      --bg: #111;
-      --surface: #1a1a1a;
-      --text: #e0dcd4;
-      --text-muted: #9a9590;
-      --accent: #c9a84c;
-      --border: #2a2724;
+      --bg:         #0a0a0a;
+      --surface:    #15130f;
+      --text:       #e0dcd4;
+      --text-muted: #8a857e;
+      --accent:     #f2bf73;   /* updated amber */
+      --glow:       #d9a633;
+      --border:     #2a2724;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Source Sans 3', system-ui, sans-serif;
+      --maxw: 1120px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: Georgia, 'Times New Roman', serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      padding: 2rem 1.5rem 4rem;
-      max-width: 680px;
-      margin: 0 auto;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
     }
-    h1 {
-      font-size: 1.8rem;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-      letter-spacing: 0.02em;
+
+    /* ===== NAV (shared) ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(10,10,9,0.72);
+      backdrop-filter: blur(14px) saturate(1.1); -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      border-bottom: 1px solid rgba(42,39,36,0.55);
+      font-family: var(--sans);
     }
-    .app-name {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-    .effective {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
-    }
-    h2 {
-      font-size: 1.15rem;
-      color: var(--accent);
-      margin: 2rem 0 0.75rem;
-    }
+    .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .brand img { width: 32px; height: 32px; display: block; }
+    .brand span { font-family: var(--serif); font-size: 1.32rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.cta { color: var(--bg); background: var(--accent); padding: 0.45rem 1.05rem; border-radius: 8px; font-weight: 600; white-space: nowrap; transition: transform 0.15s, box-shadow 0.2s; }
+    .nav-links a.cta:hover { color: var(--bg); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(217,166,51,0.4); }
+
+    /* ===== DOCUMENT (reading column) ===== */
+    .doc { max-width: 680px; margin: 0 auto; padding: clamp(2.5rem, 6vw, 4rem) 1.5rem 4rem; }
+    h1 { font-family: var(--serif); font-size: clamp(1.9rem, 5vw, 2.4rem); font-weight: 500; color: var(--accent); margin-bottom: 0.25rem; letter-spacing: 0.01em; }
+    .app-name { font-family: var(--sans); font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .effective { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+    h2 { font-family: var(--serif); font-size: clamp(1.2rem, 3vw, 1.4rem); font-weight: 500; color: var(--accent); margin: 2.25rem 0 0.75rem; }
     p { margin-bottom: 1rem; }
     a { color: var(--accent); }
-    ul {
-      margin: 0.5rem 0 1rem 1.5rem;
-    }
+    ul { margin: 0.5rem 0 1rem 1.5rem; }
     li { margin-bottom: 0.4rem; }
-    .highlight {
-      background: var(--surface);
-      border-left: 3px solid var(--accent);
-      padding: 1rem 1.25rem;
-      margin: 1.25rem 0;
-      border-radius: 0 4px 4px 0;
-    }
-    .footer {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-    .home-link:hover { color: var(--accent); }
+    .highlight { background: var(--surface); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; margin: 1.25rem 0; border-radius: 0 6px 6px 0; }
+    .doc-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+    .doc-footer a { color: var(--accent); }
+
+    /* ===== FOOTER (shared) ===== */
+    .site-footer { padding: 2.6rem clamp(1.25rem, 5vw, 2.5rem); border-top: 1px solid var(--border); background: rgba(10,10,9,0.7); font-family: var(--sans); }
+    .footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.6rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.4rem; font-size: 0.9rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-meta { font-size: 0.85rem; color: var(--text-muted); }
   </style>
 </head>
 <body>
 
-<a href="/" class="home-link">← Curator</a>
+  <!-- ===================== NAV (shared) ===================== -->
+  <header class="nav">
+    <a class="brand" href="index.html">
+      <img src="assets/icon.svg" alt="Curator icon">
+      <span>Curator</span>
+    </a>
+    <nav class="nav-links">
+      <a href="faq.html">FAQ</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#download" class="cta">Get the app</a>
+    </nav>
+  </header>
 
-<h1>Terms of Use</h1>
-<p class="app-name">Curator — Photo Manager</p>
-<p class="effective">Effective date: 2 April 2026</p>
+  <!-- ===================== LEGAL CONTENT (unchanged) ===================== -->
+  <main class="doc">
 
-<p>These terms govern your use of Curator ("the app"), developed by Oscar Lampe, based in Switzerland. By using the app, you agree to these terms.</p>
+    <h1>Terms of Use</h1>
+    <p class="app-name">Curator — Photo Manager</p>
+    <p class="effective">Effective date: 2 April 2026</p>
 
-<h2>What the app does</h2>
-<p>Curator helps you manage your iPhone photo library. It scans your photos on-device to find duplicates and similar images, and helps you organise photos into albums. All processing happens locally on your device.</p>
+    <p>These terms govern your use of Curator ("the app"), developed by Oscar Lampe, based in Switzerland. By using the app, you agree to these terms.</p>
 
-<h2>Photo library access</h2>
-<p>Curator requires access to your photo library to function. You grant this through iOS permissions. The app reads your photos for analysis and can write albums to your library when you choose to publish them.</p>
+    <h2>What the app does</h2>
+    <p>Curator helps you manage your iPhone photo library. It scans your photos on-device to find duplicates and similar images, and helps you organise photos into albums. All processing happens locally on your device.</p>
 
-<div class="highlight">
-  <strong>Photo deletion:</strong> When you confirm deletions through Curator, the app moves photos to your iPhone's "Recently Deleted" folder via iOS. Photos remain recoverable there for 30 days before iOS permanently removes them. Curator does not bypass this safety net. You are responsible for reviewing your deletion choices before confirming them.
-</div>
+    <h2>Photo library access</h2>
+    <p>Curator requires access to your photo library to function. You grant this through iOS permissions. The app reads your photos for analysis and can write albums to your library when you choose to publish them.</p>
 
-<h2>Freemium model and purchase</h2>
-<p>Curator is free to use for photos taken in the last 30 days. A one-time in-app purchase unlocks access to your full photo library. This is a permanent, non-consumable purchase — there is no subscription and no recurring charge.</p>
-<p>Purchases are processed through Apple's App Store. If you reinstall the app or switch devices, you can restore your purchase at no additional cost using the restore button in the app.</p>
-<p>Refund requests are handled by Apple through their standard process, as Apple processes all App Store payments.</p>
+    <div class="highlight">
+      <strong>Photo deletion:</strong> When you confirm deletions through Curator, the app moves photos to your iPhone's "Recently Deleted" folder via iOS. Photos remain recoverable there for 30 days before iOS permanently removes them. Curator does not bypass this safety net. You are responsible for reviewing your deletion choices before confirming them.
+    </div>
 
-<h2>AI-powered features</h2>
-<p>Curator uses machine learning models (CLIP for image similarity, perceptual hashing for duplicate detection) to analyse your photos. These models run entirely on your device. No photos or analysis results are sent to any server.</p>
-<p>AI analysis is not perfect. The app may occasionally flag photos as similar that you consider different, or miss similarities. Review suggestions are recommendations — you always make the final decision on what to keep or remove.</p>
+    <h2>Freemium model and purchase</h2>
+    <p>Curator is free to use for photos taken in the last 30 days. A one-time in-app purchase unlocks access to your full photo library. This is a permanent, non-consumable purchase — there is no subscription and no recurring charge.</p>
+    <p>Purchases are processed through Apple's App Store. If you reinstall the app or switch devices, you can restore your purchase at no additional cost using the restore button in the app.</p>
+    <p>Refund requests are handled by Apple through their standard process, as Apple processes all App Store payments.</p>
 
-<h2>Your content</h2>
-<p>Your photos are yours. Curator does not claim any rights over your photos or metadata. The app accesses your library solely to provide its features and does not copy, transmit, or store your photos outside the app's local cache on your device.</p>
+    <h2>AI-powered features</h2>
+    <p>Curator uses machine learning models (CLIP for image similarity, perceptual hashing for duplicate detection) to analyse your photos. These models run entirely on your device. No photos or analysis results are sent to any server.</p>
+    <p>AI analysis is not perfect. The app may occasionally flag photos as similar that you consider different, or miss similarities. Review suggestions are recommendations — you always make the final decision on what to keep or remove.</p>
 
-<h2>Acceptable use</h2>
-<p>Use Curator for its intended purpose: managing your personal photo library. Don't attempt to reverse-engineer the app or extract its machine learning models.</p>
+    <h2>Your content</h2>
+    <p>Your photos are yours. Curator does not claim any rights over your photos or metadata. The app accesses your library solely to provide its features and does not copy, transmit, or store your photos outside the app's local cache on your device.</p>
 
-<h2>Limitation of liability</h2>
-<p>Curator is provided "as is." While we take care to ensure the app works correctly, we cannot guarantee it will be error-free. In particular:</p>
-<ul>
-  <li>We are not liable for photos you choose to delete based on the app's suggestions. Always review before confirming deletions.</li>
-  <li>We are not liable for any data loss resulting from app bugs, iOS updates, or device issues.</li>
-  <li>Our total liability is limited to the amount you paid for the app's in-app purchase.</li>
-</ul>
-<p>Nothing in these terms excludes liability that cannot be excluded under Swiss or applicable law (such as liability for wilful misconduct).</p>
+    <h2>Acceptable use</h2>
+    <p>Use Curator for its intended purpose: managing your personal photo library. Don't attempt to reverse-engineer the app or extract its machine learning models.</p>
 
-<h2>Apple's standard EULA</h2>
-<p>Your use of Curator is also subject to Apple's <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Licensed Application End User License Agreement</a>. In case of conflict between these terms and Apple's EULA, Apple's EULA takes precedence to the extent required by Apple.</p>
+    <h2>Limitation of liability</h2>
+    <p>Curator is provided "as is." While we take care to ensure the app works correctly, we cannot guarantee it will be error-free. In particular:</p>
+    <ul>
+      <li>We are not liable for photos you choose to delete based on the app's suggestions. Always review before confirming deletions.</li>
+      <li>We are not liable for any data loss resulting from app bugs, iOS updates, or device issues.</li>
+      <li>Our total liability is limited to the amount you paid for the app's in-app purchase.</li>
+    </ul>
+    <p>Nothing in these terms excludes liability that cannot be excluded under Swiss or applicable law (such as liability for wilful misconduct).</p>
 
-<h2>Governing law</h2>
-<p>These terms are governed by the laws of Switzerland. Any disputes will be subject to the jurisdiction of the courts at the developer's place of domicile in Switzerland, except where mandatory consumer protection laws require otherwise.</p>
+    <h2>Apple's standard EULA</h2>
+    <p>Your use of Curator is also subject to Apple's <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Licensed Application End User License Agreement</a>. In case of conflict between these terms and Apple's EULA, Apple's EULA takes precedence to the extent required by Apple.</p>
 
-<h2>Changes to these terms</h2>
-<p>We may update these terms. Changes take effect when posted at this URL with an updated effective date. Continued use of the app after changes constitutes acceptance.</p>
+    <h2>Governing law</h2>
+    <p>These terms are governed by the laws of Switzerland. Any disputes will be subject to the jurisdiction of the courts at the developer's place of domicile in Switzerland, except where mandatory consumer protection laws require otherwise.</p>
 
-<h2>Contact</h2>
-<p>Questions about these terms? Reach us at <a href="mailto:support@curatorapp.ch">support@curatorapp.ch</a>.</p>
+    <h2>Changes to these terms</h2>
+    <p>We may update these terms. Changes take effect when posted at this URL with an updated effective date. Continued use of the app after changes constitutes acceptance.</p>
 
-<div class="footer">
-  <p>Last updated: 2 April 2026</p>
-  <p><a href="privacy.html">Privacy Policy</a> · <a href="/">Home</a></p>
-</div>
+    <h2>Contact</h2>
+    <p>Questions about these terms? Reach us at <a href="/cdn-cgi/l/email-protection#02717772726d70764261777063766d706372722c616a"><span class="__cf_email__" data-cfemail="097a7c7979667b7d496a7c7b687d667b687979276a61">[email&#160;protected]</span></a>.</p>
 
-</body>
+    <div class="doc-footer">
+      <p>Last updated: 2 April 2026</p>
+      <p><a href="privacy.html">Privacy Policy</a> · <a href="index.html">Home</a></p>
+    </div>
+
+  </main>
+
+  <!-- ===================== FOOTER (shared) ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="/cdn-cgi/l/email-protection#75060005051a07013516000714011a071405055b161d"><span class="__cf_email__" data-cfemail="70030500001f02043013050211041f021100005e1318">[email&#160;protected]</span></a>
+      </div>
+      <div class="footer-meta">© 2026 Oat</div>
+    </div>
+  </footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>

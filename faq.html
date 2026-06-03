@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curator — Frequently Asked Questions</title>
+  <meta name="description" content="Answers about Curator: iCloud Photo Library, on-device AI, the one-time purchase, photo recovery, supported devices, and more.">
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== DESIGN TOKENS (shared across the site) ===== */
+    :root {
+      --bg:         #0a0a0a;
+      --bg-raise:   #121110;
+      --text:       #e0dcd4;
+      --text-muted: #8a857e;
+      --accent:     #f2bf73;
+      --glow:       #d9a633;
+      --border:     #2a2724;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Source Sans 3', system-ui, sans-serif;
+      --maxw: 1120px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--text);
+      line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV (shared) ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(10,10,9,0.72);
+      backdrop-filter: blur(14px) saturate(1.1); -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      border-bottom: 1px solid rgba(42,39,36,0.55);
+    }
+    .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .brand img { width: 32px; height: 32px; display: block; }
+    .brand span { font-family: var(--serif); font-size: 1.32rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a[aria-current] { color: var(--accent); }
+    .nav-links a.cta { color: var(--bg); background: var(--accent); padding: 0.45rem 1.05rem; border-radius: 8px; font-weight: 600; white-space: nowrap; transition: transform 0.15s, box-shadow 0.2s; }
+    .nav-links a.cta:hover { color: var(--bg); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(217,166,51,0.4); }
+
+    /* ===== PAGE HEADER ===== */
+    .page-head {
+      max-width: 780px; margin: 0 auto;
+      padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 2rem) 1rem;
+      text-align: center;
+    }
+    .page-head .eyebrow {
+      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .page-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.05; margin-bottom: 1rem; }
+    .page-head p { color: var(--text-muted); font-size: clamp(1rem, 2.4vw, 1.15rem); max-width: 540px; margin: 0 auto; text-wrap: pretty; }
+
+    /* ===== FAQ LIST =====
+       To add a question, copy one <details class="qa"> block. */
+    .faq-list { max-width: 780px; margin: 2.5rem auto 0; padding: 0 clamp(1.25rem, 5vw, 2rem); }
+    .qa {
+      border-bottom: 1px solid var(--border);
+    }
+    .qa[open] { background: linear-gradient(180deg, rgba(242,191,115,0.04), transparent); }
+    .qa summary {
+      list-style: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 1.45rem 0.4rem;
+      font-family: var(--serif); font-weight: 500; font-size: clamp(1.15rem, 3vw, 1.4rem);
+      color: var(--text); transition: color 0.2s;
+    }
+    .qa summary::-webkit-details-marker { display: none; }
+    .qa summary:hover { color: var(--accent); }
+    .qa .chev {
+      flex: none; width: 22px; height: 22px; color: var(--accent);
+      transition: transform 0.25s ease;
+    }
+    .qa[open] .chev { transform: rotate(45deg); }
+    .qa .answer { padding: 0 0.4rem 1.6rem; }
+    .qa .answer p { color: var(--text-muted); font-size: 1.02rem; line-height: 1.7; max-width: 64ch; }
+    .qa .answer p + p { margin-top: 0.9rem; }
+    .qa .answer a { color: var(--accent); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .qa[open] .answer { animation: fade 0.35s ease; }
+      @keyframes fade { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    }
+
+    /* ===== CONTACT STRIP ===== */
+    .contact-strip {
+      max-width: 780px; margin: 3.5rem auto 0; padding: 2.2rem clamp(1.5rem, 5vw, 2.2rem);
+      border: 1px solid var(--border); border-radius: 16px; background: var(--bg-raise);
+      text-align: center;
+    }
+    .contact-strip h2 { font-family: var(--serif); font-weight: 500; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .contact-strip p { color: var(--text-muted); margin-bottom: 1.2rem; }
+    .contact-strip a.mail {
+      display: inline-block; color: var(--bg); background: var(--accent);
+      padding: 0.6rem 1.4rem; border-radius: 9px; font-weight: 600; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .contact-strip a.mail:hover { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(217,166,51,0.35); }
+
+    /* ===== FOOTER (shared) ===== */
+    .site-footer {
+      margin-top: clamp(3.5rem, 8vw, 6rem);
+      padding: 2.6rem clamp(1.25rem, 5vw, 2.5rem);
+      border-top: 1px solid var(--border); background: rgba(10,10,9,0.7);
+    }
+    .footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.6rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.4rem; font-size: 0.9rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-meta { font-size: 0.85rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <a class="brand" href="index.html">
+      <img src="assets/icon.svg" alt="Curator icon">
+      <span>Curator</span>
+    </a>
+    <nav class="nav-links">
+      <a href="faq.html" aria-current="page">FAQ</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#download" class="cta">Get the app</a>
+    </nav>
+  </header>
+
+  <!-- ===================== HEADER ===================== -->
+  <div class="page-head">
+    <p class="eyebrow">FAQ</p>
+    <h1>Frequently asked questions</h1>
+    <p>Everything about how Curator handles your photos, your privacy, and your purchase.</p>
+  </div>
+
+  <!-- ===================== FAQ LIST =====================
+       SECTION: Each Q&A is one self-contained <details class="qa"> block.
+       To add a new question, copy a block and edit the <summary> and answer. -->
+  <main class="faq-list">
+
+    <details class="qa" open>
+      <summary>Does Curator work with iCloud Photo Library?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Yes. Curator reads your library through Apple's PhotoKit framework, so it works whether your photos live locally or in iCloud Photo Library.</p>
+        <p>If iCloud Photo Library is on, iOS may fetch full-resolution photos from iCloud to your device so Curator can analyse them — that's standard iOS behaviour. Curator itself never talks to iCloud or any other cloud service.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Will it delete my photos without asking?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>No. Nothing is removed until you review and confirm it. Curator's suggestions are recommendations — you always make the final call on what to keep.</p>
+        <p>When you do confirm, photos move to your iPhone's "Recently Deleted" album via iOS, where they stay recoverable for 30 days. Curator never bypasses that safety net.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What's the difference between the free and paid versions?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>The free version lets you clean and organise photos taken in the last 30 days — enough to see exactly how Curator works on your own library.</p>
+        <p>A single one-time purchase ($5.99) unlocks your entire photo library, with no other limits. Same app, same features — the purchase simply removes the 30-day window.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>How does the AI work? Does it send my photos anywhere?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>All of it runs on your device. Curator uses a CLIP neural network to understand what's in each photo (for similarity and smart albums) and perceptual hashing to spot duplicates and bursts.</p>
+        <p>We don't operate any servers, so there is nowhere for your photos to be sent. No image data, thumbnails, or metadata ever leave your iPhone, and nothing is used to train AI.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Can I recover photos after deleting them in Curator?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Yes, within 30 days. Deletions you confirm in Curator go to the iOS "Recently Deleted" album in the Photos app. You can restore anything from there for 30 days before iOS removes it permanently.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Does it work with Live Photos and videos?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Yes. Curator sees your whole library, including Live Photos and videos. Videos get their own category in the Clean tab so you can spot the large files that take up the most space, and they can be grouped into albums alongside your photos.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Is there a subscription, or is it a one-time purchase?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>It's a one-time purchase. The unlock is a permanent, non-consumable in-app purchase ($5.99) — pay once and it's yours. There is no subscription and no recurring charge of any kind.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What iPhone models and iOS versions does Curator support?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Curator runs on iPhone with a recent version of iOS. Because the AI analysis runs locally, a newer device will scan large libraries faster — but the app is designed to work comfortably across current iPhones.</p>
+        <p>Exact version requirements are listed on the App Store listing at launch.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>I bought Curator on one device — can I use it on another?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Yes. The purchase is tied to your Apple Account, not a single device. Install Curator on another iPhone signed in with the same Apple Account and tap the restore button to unlock it again — at no extra cost.</p>
+      </div>
+    </details>
+
+  </main>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="contact-strip">
+    <h2>Still have a question?</h2>
+    <p>We're a small shop and we read every message.</p>
+    <a class="mail" href="/cdn-cgi/l/email-protection#0774727777687573476472756673687566777729646f"><span class="__cf_email__" data-cfemail="2f5c5a5f5f405d5b6f4c5a5d4e5b405d4e5f5f014c47">[email&#160;protected]</span></a>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="/cdn-cgi/l/email-protection#c9babcb9b9a6bbbd89aabcbba8bda6bba8b9b9e7aaa1"><span class="__cf_email__" data-cfemail="0f7c7a7f7f607d7b4f6c7a7d6e7b607d6e7f7f216c67">[email&#160;protected]</span></a>
+      </div>
+      <div class="footer-meta">© 2026 Oat</div>
+    </div>
+  </footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

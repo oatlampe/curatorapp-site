@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curator — Blog</title>
+  <meta name="description" content="Notes on photo overload, decluttering your iPhone library, and building Curator.">
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== DESIGN TOKENS (shared across the site) ===== */
+    :root {
+      --bg:         #0a0a0a;
+      --bg-raise:   #121110;
+      --text:       #e0dcd4;
+      --text-muted: #8a857e;
+      --accent:     #f2bf73;
+      --glow:       #d9a633;
+      --border:     #2a2724;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Source Sans 3', system-ui, sans-serif;
+      --maxw: 1120px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--text);
+      line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV (shared) ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(10,10,9,0.72);
+      backdrop-filter: blur(14px) saturate(1.1); -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      border-bottom: 1px solid rgba(42,39,36,0.55);
+    }
+    .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .brand img { width: 32px; height: 32px; display: block; }
+    .brand span { font-family: var(--serif); font-size: 1.32rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a[aria-current] { color: var(--accent); }
+    .nav-links a.cta { color: var(--bg); background: var(--accent); padding: 0.45rem 1.05rem; border-radius: 8px; font-weight: 600; white-space: nowrap; transition: transform 0.15s, box-shadow 0.2s; }
+    .nav-links a.cta:hover { color: var(--bg); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(217,166,51,0.4); }
+
+    /* ===== PAGE HEADER ===== */
+    .page-head {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 2rem) 0.5rem;
+      text-align: center;
+    }
+    .page-head .eyebrow { font-weight: 600; font-size: 0.8rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .page-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.05; margin-bottom: 1rem; }
+    .page-head p { color: var(--text-muted); font-size: clamp(1rem, 2.4vw, 1.15rem); max-width: 520px; margin: 0 auto; text-wrap: pretty; }
+
+    /* ===== POST LIST =====
+       To publish a post, copy one <article class="post"> block,
+       update the date / title / summary, and point the link at the post page. */
+    .posts {
+      max-width: 820px; margin: clamp(2.5rem, 6vw, 3.5rem) auto 0;
+      padding: 0 clamp(1.25rem, 5vw, 2rem);
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .post {
+      display: block; text-decoration: none; color: inherit;
+      padding: 1.9rem clamp(1.4rem, 4vw, 2.2rem);
+      background: var(--bg-raise); border: 1px solid var(--border); border-radius: 16px;
+      transition: transform 0.22s, border-color 0.22s, background 0.22s;
+    }
+    .post:hover { transform: translateY(-3px); border-color: rgba(242,191,115,0.32); background: #15130f; }
+    .post-meta {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 0.85rem;
+    }
+    .post-meta .tag { color: var(--accent); }
+    .post-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+    .post h2 {
+      font-family: var(--serif); font-weight: 500; font-size: clamp(1.5rem, 4vw, 2rem);
+      line-height: 1.18; margin-bottom: 0.6rem; text-wrap: balance;
+    }
+    .post:hover h2 { color: var(--accent); }
+    .post p { color: var(--text-muted); font-size: 1.02rem; line-height: 1.6; max-width: 60ch; margin-bottom: 1.1rem; }
+    .read-more {
+      font-size: 0.95rem; font-weight: 600; color: var(--accent);
+      display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s;
+    }
+    .post:hover .read-more { gap: 0.7rem; }
+
+    /* ===== SUBTLE END NOTE ===== */
+    .more-soon {
+      max-width: 820px; margin: 2.5rem auto 0; padding: 0 clamp(1.25rem, 5vw, 2rem);
+      text-align: center; color: var(--text-muted); font-size: 0.95rem;
+    }
+
+    /* ===== FOOTER (shared) ===== */
+    .site-footer {
+      margin-top: clamp(3.5rem, 8vw, 6rem);
+      padding: 2.6rem clamp(1.25rem, 5vw, 2.5rem);
+      border-top: 1px solid var(--border); background: rgba(10,10,9,0.7);
+    }
+    .footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.6rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.4rem; font-size: 0.9rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-meta { font-size: 0.85rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <a class="brand" href="index.html">
+      <img src="assets/icon.svg" alt="Curator icon">
+      <span>Curator</span>
+    </a>
+    <nav class="nav-links">
+      <a href="faq.html">FAQ</a>
+      <a href="blog.html" aria-current="page">Blog</a>
+      <a href="index.html#download" class="cta">Get the app</a>
+    </nav>
+  </header>
+
+  <!-- ===================== HEADER ===================== -->
+  <div class="page-head">
+    <p class="eyebrow">Blog</p>
+    <h1>Notes from the darkroom</h1>
+    <p>Thoughts on photo overload, decluttering, and building a calmer way to keep your memories.</p>
+  </div>
+
+  <!-- ===================== POSTS =====================
+       SECTION: Post list. Each entry is one <article class="post"> wrapped in
+       its link. To add a post, copy a block, edit the metadata, and set href. -->
+  <main class="posts">
+
+    <article>
+      <a class="post" href="#">
+        <div class="post-meta">
+          <span class="tag">Behind the app</span>
+          <span class="dot"></span>
+          <time datetime="2026-04-08">8 April 2026</time>
+          <span class="dot"></span>
+          <span>5 min read</span>
+        </div>
+        <h2>Why I built Curator</h2>
+        <p>A solo developer's take on 22,000 photos, the quiet dread of a full camera roll, and what it took to build a tool that actually helps — without sending a single image to the cloud.</p>
+        <span class="read-more">Read more →</span>
+      </a>
+    </article>
+
+    <article>
+      <a class="post" href="#">
+        <div class="post-meta">
+          <span class="tag">Guide</span>
+          <span class="dot"></span>
+          <time datetime="2026-03-24">24 March 2026</time>
+          <span class="dot"></span>
+          <span>7 min read</span>
+        </div>
+        <h2>How to finally clean up your iPhone photo library</h2>
+        <p>A practical, no-guilt walkthrough: where the clutter hides, how to clear duplicates and screenshots without losing the good ones, and a simple weekly habit that keeps things tidy.</p>
+        <span class="read-more">Read more →</span>
+      </a>
+    </article>
+
+  </main>
+
+  <p class="more-soon">More posts on the way. Want a heads-up? Email <a href="/cdn-cgi/l/email-protection#82f1f7f2f2edf0f6c2e1f7f0e3f6edf0e3f2f2ace1ea" style="color: var(--accent);"><span class="__cf_email__" data-cfemail="daa9afaaaab5a8ae9ab9afa8bbaeb5a8bbaaaaf4b9b2">[email&#160;protected]</span></a>.</p>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="/cdn-cgi/l/email-protection#2f5c5a5f5f405d5b6f4c5a5d4e5b405d4e5f5f014c47"><span class="__cf_email__" data-cfemail="e0939590908f9294a083959281948f92819090ce8388">[email&#160;protected]</span></a>
+      </div>
+      <div class="footer-meta">© 2026 Oat</div>
+    </div>
+  </footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

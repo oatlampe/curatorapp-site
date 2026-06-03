@@ -3,258 +3,600 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curator — Photo Manager</title>
-  <meta name="description" content="Declutter your photo library and build the albums you've always wanted. All AI processing stays on your device.">
+  <title>Curator — Photo Manager for iPhone</title>
+  <meta name="description" content="Declutter your photo library and build the albums you've always wanted. All AI processing stays on your device. A one-time purchase, no subscription.">
+  <link rel="icon" href="assets/icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* ============================================================
+       DESIGN TOKENS  — change colours here, site-wide
+       ============================================================ */
     :root {
-      --bg: #0a0a0a;
-      --text: #e0dcd4;
-      --text-muted: #8a857e;
-      --accent: #c9a84c;
-      --border: #2a2724;
+      --bg:           #0a0a0a;   /* page background            */
+      --bg-raise:     #121110;   /* raised surfaces / cards    */
+      --text:         #e0dcd4;   /* primary text               */
+      --text-muted:   #8a857e;   /* secondary / muted text     */
+      --accent:       #f2bf73;   /* primary amber (app accent) */
+      --glow:         #d9a633;   /* amber glow (screenshots)   */
+      --border:       #2a2724;   /* hairlines, dividers        */
+
+      /* category jewel tones (from the app theme) */
+      --jewel-clean:  #f2bf73;   /* Clean  — amber             */
+      --jewel-create: #a680d9;   /* Create — purple            */
+      --jewel-curate: #73b3e6;   /* Curate — blue              */
+      --jewel-dup:    #d97373;   /* duplicates — red           */
+
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Source Sans 3', system-ui, sans-serif;
+
+      --maxw: 1120px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Background photo layer */
-    .bg-photo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      overflow: hidden;
-    }
+    a { color: inherit; }
 
-    .bg-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%; /* Focus on the clock area */
-      filter: blur(5px) saturate(0.6) brightness(0.45);
-      transform: scale(1.05); /* Prevent blur edge bleed */
+    /* ============================================================
+       BACKGROUND  — blurred Musée d'Orsay, scoped to the hero.
+       It scrolls WITH the page and fades to solid black within its
+       own height, so the first section meets matching black (no seam).
+       ============================================================ */
+    .hero-backdrop {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: clamp(640px, 98vh, 1080px);
+      z-index: 0; overflow: hidden; pointer-events: none;
     }
-
-    /* Dark gradient overlay — heavier at center where text sits */
-    .bg-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+    .hero-backdrop img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 16%;
+      filter: blur(4px) saturate(0.62) brightness(0.66);
+      transform: scale(1.06);
+    }
+    /* Overlay: museum clearly visible just below the nav, a soft vignette
+       behind the hero text for legibility, then a complete fade to black
+       before the bottom edge — that is what removes the hard line. */
+    .hero-backdrop::after {
+      content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at center 40%, rgba(10, 10, 8, 0.65) 0%, rgba(10, 10, 8, 0.45) 50%, rgba(10, 10, 8, 0.75) 100%),
-        linear-gradient(to bottom, rgba(10, 10, 8, 0.2) 0%, rgba(10, 10, 8, 0.6) 100%);
+        radial-gradient(ellipse 80% 58% at 50% 40%, rgba(10,10,8,0.32) 0%, rgba(10,10,8,0.08) 50%, rgba(10,10,8,0.32) 100%),
+        linear-gradient(to bottom,
+          rgba(10,10,8,0.42) 0%,
+          rgba(10,10,8,0.14) 15%,
+          rgba(10,10,8,0.28) 44%,
+          rgba(10,10,8,0.72) 74%,
+          rgba(10,10,8,0.97) 90%,
+          var(--bg) 100%);
     }
 
-    /* Content sits above everything */
+    .page { position: relative; z-index: 2; background: var(--bg); }
+
+    /* ============================================================
+       NAV  — persistent header on every page
+       ============================================================ */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem;
+      padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(10,10,9,0.55);
+      backdrop-filter: blur(14px) saturate(1.1);
+      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      border-bottom: 1px solid rgba(42,39,36,0.55);
+    }
+    .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .brand img { width: 32px; height: 32px; display: block; }
+    .brand span {
+      font-family: var(--serif); font-size: 1.32rem; font-weight: 500;
+      letter-spacing: 0.04em; color: var(--text);
+    }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
+    .nav-links a {
+      font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em;
+      color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.cta {
+      color: var(--bg); background: var(--accent);
+      padding: 0.45rem 1.05rem; border-radius: 8px; font-weight: 600; white-space: nowrap;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .nav-links a.cta:hover {
+      color: var(--bg); transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(217,166,51,0.4);
+    }
+    .nav-toggle { display: none; }
+
+    @media (max-width: 620px) {
+      .nav-links .desktop-only { display: none; }
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
     .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 6rem 2rem 3rem;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+      padding: clamp(3.5rem, 9vw, 6.5rem) 1.5rem clamp(3rem, 7vw, 5rem);
       position: relative;
-      z-index: 2;
-      width: 100%;
-      flex: 1;
     }
-
-    /* Warm glow that echoes the museum lighting */
     .hero::before {
-      content: '';
-      position: absolute;
-      top: 8%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 65%);
+      content: ''; position: absolute; top: 4%; left: 50%;
+      width: 620px; height: 620px; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(242,191,115,0.06) 0%, transparent 64%);
       pointer-events: none;
     }
-
-    .icon {
-      width: 160px;
-      height: 160px;
-      border-radius: 0;
-      margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
-      /* SVG with transparency — no box-shadow needed */
-      filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+    .hero-icon {
+      width: clamp(104px, 18vw, 148px); height: auto; margin-bottom: 1.8rem;
+      filter: drop-shadow(0 6px 26px rgba(0,0,0,0.6));
     }
-
-    .app-name {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 3rem;
-      font-weight: 400;
-      color: var(--text);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.75rem;
+    .hero h1 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(2.6rem, 7vw, 4rem); letter-spacing: 0.05em;
+      line-height: 1; margin-bottom: 1rem;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.6);
     }
-
     .pillars {
-      font-family: 'Source Sans 3', system-ui, sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
+      font-family: var(--sans); font-weight: 600;
+      font-size: clamp(0.8rem, 2vw, 1rem); letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 2.2rem;
+      text-shadow: 0 1px 16px rgba(0,0,0,0.55);
     }
-
     .tagline {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      text-align: center;
-      max-width: 480px;
-      line-height: 1.65;
-      margin-bottom: 1.25rem;
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(1.25rem, 3.4vw, 1.7rem); line-height: 1.5;
+      color: var(--text); max-width: 600px; text-wrap: balance;
+      margin-bottom: 0.9rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.55);
+    }
+    .tagline .muted { color: var(--text-muted); }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--text-muted);
+      max-width: 440px; margin-bottom: 2.4rem; line-height: 1.6;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.6);
     }
 
-    .tagline .second-line {
-      color: var(--text);
+    /* ---- App Store badge (placeholder — Coming Soon) ---- */
+    .download {
+      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+    }
+    .appstore-badge {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      padding: 0.7rem 1.4rem 0.7rem 1.2rem; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(30,28,25,0.9), rgba(16,15,14,0.9));
+      color: var(--text); text-decoration: none; cursor: default;
+      opacity: 0.92; transition: border-color 0.2s, transform 0.15s;
+    }
+    .appstore-badge:hover { border-color: rgba(242,191,115,0.45); transform: translateY(-1px); }
+    .appstore-badge svg { width: 26px; height: 26px; flex: none; fill: var(--text); }
+    .appstore-badge .b-text { text-align: left; line-height: 1.15; }
+    .appstore-badge .b-small { font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+    .appstore-badge .b-big { font-family: var(--serif); font-size: 1.18rem; font-weight: 500; }
+    .coming-soon {
+      font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--glow); font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .coming-soon::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 10px var(--glow); }
+
+    /* ============================================================
+       SHARED SECTION SCAFFOLD
+       ============================================================ */
+    .section { padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 5vw, 2.5rem); }
+    .section.flat { background: var(--bg); }
+    .wrap { max-width: var(--maxw); margin: 0 auto; }
+    .eyebrow {
+      font-family: var(--sans); font-weight: 600;
+      font-size: 0.8rem; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem; text-align: center;
+    }
+    .section h2 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.1;
+      text-align: center; margin-bottom: 1rem; text-wrap: balance;
+    }
+    .section .lede {
+      text-align: center; color: var(--text-muted);
+      font-size: clamp(1rem, 2.4vw, 1.18rem); max-width: 560px;
+      margin: 0 auto clamp(2.8rem, 6vw, 4rem); text-wrap: pretty;
     }
 
-    .privacy-note {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-align: center;
-      max-width: 380px;
-      line-height: 1.6;
-      margin-bottom: 3rem;
+    /* ============================================================
+       SECTION: How it works  (three steps)
+       ============================================================ */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .step {
+      position: relative; padding: 2.2rem 1.8rem;
+      background: var(--bg-raise); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
     }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 2rem;
+    .step:hover { transform: translateY(-4px); border-color: rgba(242,191,115,0.3); }
+    .step::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--step-color, var(--accent));
+      opacity: 0.85;
     }
-
-    .contact {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
+    .step-num {
+      font-family: var(--sans); font-weight: 600; font-size: 0.78rem;
+      letter-spacing: 0.22em; color: var(--step-color, var(--accent));
+      margin-bottom: 1.1rem;
     }
-
-    .contact a {
-      color: var(--accent);
-      text-decoration: none;
+    .step-icon {
+      width: 48px; height: 48px; border-radius: 12px; margin-bottom: 1.1rem;
+      display: grid; place-items: center;
+      background: color-mix(in oklab, var(--step-color, var(--accent)) 15%, transparent);
+      border: 1px solid color-mix(in oklab, var(--step-color, var(--accent)) 35%, transparent);
     }
-
-    .contact a:hover {
-      text-decoration: underline;
+    .step-icon svg { width: 24px; height: 24px; stroke: var(--step-color, var(--accent)); fill: none; stroke-width: 1.7; }
+    .step-icon.sparkle svg { stroke: none; fill: var(--step-color, var(--accent)); }
+    .step h3 {
+      font-family: var(--serif); font-weight: 500; font-size: 1.5rem;
+      margin-bottom: 0.6rem;
     }
+    .step p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.6; }
 
-    /* Footer */
-    footer {
-      width: 100%;
-      padding: 2rem;
-      text-align: center;
-      border-top: 1px solid rgba(42, 39, 36, 0.6);
+    /* ============================================================
+       SECTION: Key differentiators
+       ============================================================ */
+    .diffs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .diff {
+      display: flex; gap: 1.1rem; align-items: flex-start;
+      padding: 1.6rem 1.7rem; border-radius: 14px;
+      background: var(--bg-raise); border: 1px solid var(--border);
+    }
+    .diff-mark {
+      flex: none; width: 38px; height: 38px; border-radius: 10px;
+      display: grid; place-items: center;
+      background: rgba(242,191,115,0.13);
+      border: 1px solid rgba(242,191,115,0.32);
+    }
+    .diff-mark svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+    .diff h3 { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; margin-bottom: 0.3rem; }
+    .diff p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
+
+    /* ============================================================
+       SECTION: Screenshots  (phones floating on Musée glow)
+       ============================================================ */
+    .shots-section {
       position: relative;
-      z-index: 2;
-      background: rgba(10, 10, 8, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      padding: clamp(4.5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 2.5rem);
+      overflow: hidden;
+    }
+    /* localised Musée backdrop just for this band */
+    .shots-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .shots-bg img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+      filter: blur(6px) saturate(0.5) brightness(0.34);
+      transform: scale(1.08);
+    }
+    .shots-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at center, rgba(10,10,8,0.45) 0%, rgba(10,10,8,0.8) 80%),
+        linear-gradient(to bottom, var(--bg), rgba(10,10,8,0.55) 18%, rgba(10,10,8,0.55) 82%, var(--bg));
+    }
+    .shots-section .wrap { position: relative; z-index: 1; }
+    .phones {
+      display: flex; justify-content: center; align-items: flex-end;
+      gap: clamp(1rem, 4vw, 3rem); flex-wrap: wrap; margin-top: 3rem;
+    }
+    .phone {
+      position: relative; flex: none;
+      width: clamp(190px, 24vw, 260px);
+      aspect-ratio: 1032 / 2200;
+    }
+    /* amber glow halo behind the device */
+    .phone::before {
+      content: ''; position: absolute; inset: -14%;
+      background: radial-gradient(ellipse at center 44%, rgba(217,166,51,0.55) 0%, rgba(217,166,51,0.28) 42%, rgba(217,166,51,0.07) 66%, transparent 78%);
+      filter: blur(26px); z-index: 0;
+    }
+    .phone-frame {
+      position: relative; z-index: 1; width: 100%; height: 100%;
+      background: #000; border-radius: 13.5%;
+      padding: 2.6%;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 24px 60px rgba(0,0,0,0.55);
+    }
+    .phone-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 11%; display: block;
+    }
+    .phone.mid { width: clamp(210px, 27vw, 290px); }
+    .phone.mid { z-index: 2; }
+
+    @media (max-width: 760px) {
+      .phone.side { display: none; }
+      .phone.mid { width: clamp(230px, 70vw, 290px); }
     }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      font-size: 0.85rem;
+    /* ============================================================
+       SECTION: FAQ teaser
+       ============================================================ */
+    .faq-teaser { max-width: 780px; margin: 0 auto; }
+    .qa {
+      border-top: 1px solid var(--border);
+      padding: 1.7rem 0.2rem;
+    }
+    .qa:last-of-type { border-bottom: 1px solid var(--border); }
+    .qa h3 {
+      font-family: var(--serif); font-weight: 500; font-size: 1.3rem;
+      color: var(--text); margin-bottom: 0.6rem;
+    }
+    .qa p { color: var(--text-muted); font-size: 1rem; line-height: 1.65; }
+    .faq-more { text-align: center; margin-top: 2.6rem; }
+    .link-arrow {
+      font-size: 1.02rem; font-weight: 600; color: var(--accent);
+      text-decoration: none; letter-spacing: 0.01em;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: gap 0.2s;
+    }
+    .link-arrow:hover { gap: 0.7rem; }
+
+    /* ============================================================
+       FOOTER  — shared across all pages
+       ============================================================ */
+    .site-footer {
+      position: relative; z-index: 2;
+      padding: 2.6rem clamp(1.25rem, 5vw, 2.5rem);
+      border-top: 1px solid var(--border);
+      background: rgba(10,10,9,0.7);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .footer-inner {
+      max-width: var(--maxw); margin: 0 auto;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 1rem 1.6rem;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.4rem; font-size: 0.9rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ============================================================
+       MOTION  — gentle reveal
+       ============================================================ */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      .reveal.in { opacity: 1; transform: none; }
     }
 
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-      .hero {
-        padding: 4rem 1.5rem 2rem;
-      }
-      .icon {
-        width: 120px;
-        height: 120px;
-        border-radius: 24px;
-        margin-bottom: 1.5rem;
-      }
-      .app-name {
-        font-size: 2.2rem;
-      }
-      .pillars {
-        font-size: 0.85rem;
-      }
-      .tagline {
-        font-size: 1.1rem;
-      }
+    @media (max-width: 820px) {
+      .steps { grid-template-columns: 1fr; }
+      .diffs { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-photo">
-    <img src="musee.jpg" alt="">
+  <div class="page">
+
+    <!-- Blurred Musée d'Orsay backdrop — scoped to the hero, fades to black -->
+    <div class="hero-backdrop" aria-hidden="true"><img src="assets/musee.jpg" alt=""></div>
+
+    <!-- ===================== NAV ===================== -->
+    <header class="nav">
+      <a class="brand" href="index.html">
+        <img src="assets/icon.svg" alt="Curator icon">
+        <span>Curator</span>
+      </a>
+      <nav class="nav-links">
+        <a href="faq.html">FAQ</a>
+        <a href="blog.html">Blog</a>
+        <!-- APP STORE LINK (nav): when the app is live, change this href from
+             "#download" to your App Store URL, e.g. https://apps.apple.com/app/idXXXXXXXXXX -->
+        <a href="#download" class="cta">Get the app</a>
+      </nav>
+    </header>
+
+    <!-- ===================== HERO ===================== -->
+    <main class="hero" id="top">
+      <img src="assets/icon.svg" alt="Curator app icon" class="hero-icon">
+      <h1>Curator</h1>
+      <p class="pillars">Clean · Create · Curate</p>
+      <p class="tagline">
+        Get on top of your photo library.<br>
+        <span class="muted">Finally make those albums you've always wanted.</span>
+      </p>
+      <p class="hero-sub">
+        AI photo curation that runs entirely on your iPhone.
+        Your photos never leave your device.
+      </p>
+
+      <!-- SECTION: App Store download (Coming Soon placeholder)
+           APP STORE LINK (primary): when the app is live, set href on the
+           <a class="appstore-badge"> below to your App Store URL
+           (e.g. https://apps.apple.com/app/idXXXXXXXXXX). You can then remove
+           the "Coming soon" line, or swap it for a price/launch note. -->
+      <div class="download" id="download">
+        <a class="appstore-badge" href="#" aria-label="Download on the App Store — coming soon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 12.04c-.03-2.55 2.08-3.78 2.18-3.84-1.19-1.74-3.04-1.98-3.7-2.01-1.57-.16-3.07.93-3.87.93-.8 0-2.03-.91-3.34-.88-1.72.02-3.31.99-4.19 2.52-1.79 3.1-.46 7.68 1.28 10.2.85 1.23 1.86 2.61 3.19 2.56 1.28-.05 1.76-.83 3.31-.83 1.54 0 1.98.83 3.34.8 1.38-.02 2.25-1.25 3.09-2.49.97-1.43 1.37-2.81 1.39-2.88-.03-.01-2.67-1.03-2.7-4.07zM14.6 4.6c.71-.86 1.19-2.05 1.06-3.24-1.02.04-2.26.68-2.99 1.54-.66.76-1.23 1.97-1.08 3.13 1.14.09 2.3-.58 3.01-1.43z"/></svg>
+          <span class="b-text">
+            <span class="b-small">Download on the</span>
+            <span class="b-big">App Store</span>
+          </span>
+        </a>
+        <span class="coming-soon">Coming soon · $5.99 one-time</span>
+      </div>
+    </main>
+
+    <!-- ===================== HOW IT WORKS ===================== -->
+    <section class="section flat" id="how">
+      <div class="wrap">
+        <p class="eyebrow reveal">How it works</p>
+        <h2 class="reveal">Three tabs. One tidy library.</h2>
+        <p class="lede reveal">Curator splits the work into three calm, deliberate steps — clean out the clutter, build the albums, then keep the ones worth printing.</p>
+
+        <div class="steps">
+          <!-- Clean -->
+          <article class="step reveal" style="--step-color: var(--jewel-clean);">
+            <p class="step-num">01 — CLEAN</p>
+            <div class="step-icon sparkle">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 2.2c.78 4.3 1.7 5.22 6 6-4.3.78-5.22 1.7-6 6-.78-4.3-1.7-5.22-6-6 4.3-.78 5.22-1.7 6-6z"/><path d="M18 12.5c.45 2.3.95 2.8 3.25 3.25-2.3.45-2.8.95-3.25 3.25-.45-2.3-.95-2.8-3.25-3.25 2.3-.45 2.8-.95 3.25-3.25z"/></svg>
+            </div>
+            <h3>Clean</h3>
+            <p>Surface duplicates, near-identical bursts, stray screenshots and oversized videos. On-device AI does the sorting; you toggle what to remove and reclaim gigabytes in a tap.</p>
+          </article>
+
+          <!-- Create -->
+          <article class="step reveal" style="--step-color: var(--jewel-create);">
+            <p class="step-num">02 — CREATE</p>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15l5-4 4 3 3-2 6 4"/><circle cx="8.5" cy="9.5" r="1.3"/></svg>
+            </div>
+            <h3>Create</h3>
+            <p>Albums build themselves — auto-grouped by trip, place and moment. Months of camera roll arrive pre-sorted into "France, Jul–Aug" and "Autumn 2025," ready to name and keep.</p>
+          </article>
+
+          <!-- Curate -->
+          <article class="step reveal" style="--step-color: var(--jewel-curate);">
+            <p class="step-num">03 — CURATE</p>
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.2C10.1 5 7.8 4.6 5.5 4.7a.85.85 0 0 0-.8.85v10.5c0 .5.43.9.95.88 2-.08 4 .32 5.85 1.27 1.85-.95 3.85-1.35 5.85-1.27.52.02.95-.38.95-.88V5.55a.85.85 0 0 0-.8-.85c-2.3-.1-4.6.3-6.45 1.5z"/><path d="M12 6.2v11.9"/></svg>
+            </div>
+            <h3>Curate</h3>
+            <p>Review your best frames side by side, pick the keepers, and turn the standouts into albums worth opening — or printing. The memories that matter, easy to find again.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DIFFERENTIATORS ===================== -->
+    <section class="section flat" id="why">
+      <div class="wrap">
+        <p class="eyebrow reveal">Why Curator</p>
+        <h2 class="reveal">Built like a tool you can trust.</h2>
+        <p class="lede reveal">No cloud, no account, no monthly bill. Just a focused app that respects your photos and your privacy.</p>
+
+        <div class="diffs">
+          <div class="diff reveal">
+            <span class="diff-mark"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <div>
+              <h3>On-device AI</h3>
+              <p>A CLIP neural network and perceptual hashing run entirely on your iPhone. No servers, no uploads — there's nothing to leak.</p>
+            </div>
+          </div>
+
+          <div class="diff reveal">
+            <span class="diff-mark"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg></span>
+            <div>
+              <h3>One-time purchase</h3>
+              <p>Pay once, own it forever. No subscription, no recurring charge — and a free tier so you can try it on your last 30 days of photos.</p>
+            </div>
+          </div>
+
+          <div class="diff reveal">
+            <span class="diff-mark"><svg viewBox="0 0 24 24"><path d="M6 16a4 4 0 0 1 .8-7.9 5.5 5.5 0 0 1 10.6-1.1A3.7 3.7 0 0 1 18 16H6z"/></svg></span>
+            <div>
+              <h3>Works with iCloud Photos</h3>
+              <p>Curator reads your library through Apple's PhotoKit. If iCloud Photo Library is on, it fits right in — no separate import or export.</p>
+            </div>
+          </div>
+
+          <div class="diff reveal">
+            <span class="diff-mark"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            <div>
+              <h3>Privacy-first</h3>
+              <p>No analytics, no tracking, no account. We never see, store, share, or train on your photos. Full stop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCREENSHOTS ===================== -->
+    <section class="shots-section" id="screens">
+      <div class="shots-bg"><img src="assets/musee.jpg" alt=""></div>
+      <div class="wrap">
+        <p class="eyebrow reveal">A closer look</p>
+        <h2 class="reveal" style="color: var(--text);">Curation, beautifully simple.</h2>
+        <p class="lede reveal">From a first scan to finished albums — every screen stays calm, editorial and out of your way.</p>
+
+        <div class="phones">
+          <figure class="phone side reveal">
+            <div class="phone-frame"><img src="assets/screen-albums.png" alt="Curator smart albums, pre-grouped by trip and time"></div>
+          </figure>
+          <figure class="phone mid reveal">
+            <div class="phone-frame"><img src="assets/screen-clean.png" alt="Curator Clean tab showing AI-picked items to remove and storage savings"></div>
+          </figure>
+          <figure class="phone side reveal">
+            <div class="phone-frame"><img src="assets/screen-privacy.png" alt="Curator privacy screen — everything runs on your device"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ TEASER ===================== -->
+    <section class="section flat" id="faq">
+      <div class="wrap">
+        <p class="eyebrow reveal">Questions</p>
+        <h2 class="reveal">Good to know.</h2>
+
+        <div class="faq-teaser">
+          <div class="qa reveal">
+            <h3>Is there a subscription?</h3>
+            <p>No. Curator is a one-time purchase ($5.99) — a permanent, non-consumable unlock with no recurring charge. The free tier covers your last 30 days of photos so you can try it first.</p>
+          </div>
+          <div class="qa reveal">
+            <h3>Does the AI send my photos anywhere?</h3>
+            <p>Never. All analysis — duplicate detection, similarity, album grouping — runs on-device using a CLIP neural network and perceptual hashing. We don't operate servers, so there's nowhere for your photos to go.</p>
+          </div>
+          <div class="qa reveal">
+            <h3>Will it delete my photos without asking?</h3>
+            <p>No. You confirm every removal. Deletions move to your iPhone's "Recently Deleted" folder, where they're recoverable for 30 days before iOS clears them.</p>
+          </div>
+        </div>
+
+        <div class="faq-more reveal">
+          <a class="link-arrow" href="faq.html">See all questions →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="/cdn-cgi/l/email-protection#04777174746b76704467717665706b766574742a676c"><span class="__cf_email__" data-cfemail="0e7d7b7e7e617c7a4e6d7b7c6f7a617c6f7e7e206d66">[email&#160;protected]</span></a>
+        </div>
+        <div class="footer-meta">© 2026 Oat</div>
+      </div>
+    </footer>
+
   </div>
-  <div class="bg-overlay"></div>
 
-  <main class="hero">
-    <img src="icon.svg" alt="Curator app icon" class="icon">
-
-    <h1 class="app-name">Curator</h1>
-
-    <p class="pillars">Clean · Curate · Print</p>
-
-    <p class="tagline">
-      <span style="font-size: 1.15rem;">Thousands of photos, thoughtfully organised.</span><br>
-      <span class="second-line">Clean the clutter. Curate the albums.<br>
-      Print the memories.</span>
-    </p>
-
-    <p class="privacy-note">
-      All AI processing happens on your device.<br>
-      Your photos never leave your phone.
-    </p>
-
-    <div class="divider"></div>
-
-    <p class="contact">
-      Questions? <a href="mailto:support@curatorapp.ch">support@curatorapp.ch</a>
-    </p>
-  </main>
-
-  <footer>
-    <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Use</a>
-    </div>
-  </footer>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Gentle scroll reveal
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (e) { e.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
 
 </body>
 </html>
