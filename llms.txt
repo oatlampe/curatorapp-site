@@ -1,0 +1,22 @@
+# Curator
+
+> Curator is a photo manager for iPhone. It helps you declutter your photo library (duplicates, similar shots, screenshots, oversized videos) and build albums automatically grouped by trip, place and time. All AI analysis — a CLIP neural network and perceptual hashing — runs entirely on-device; photos never leave the phone. One-time purchase ($5.99), no subscription, with a free tier covering the last 30 days of photos.
+
+Developed by Oscar Lampe in Switzerland. Download: https://apps.apple.com/app/id6761866365
+
+## Pages
+
+- [Home](https://curatorapp.ch/): What Curator does — Clean, Create, Curate
+- [FAQ](https://curatorapp.ch/faq.html): iCloud Photos, on-device AI, pricing, photo recovery, supported devices
+- [Blog](https://curatorapp.ch/blog.html): Notes on photo overload and decluttering
+- [Privacy Policy](https://curatorapp.ch/privacy.html): No accounts, no analytics, no tracking
+- [Terms of Use](https://curatorapp.ch/terms.html)
+
+## Key facts
+
+- Platform: iOS (iPhone)
+- Pricing: one-time purchase $5.99; free tier for the last 30 days of photos
+- Privacy: all processing on-device; no servers, no photo uploads, no analytics
+- Deletions go to iOS "Recently Deleted" (recoverable for 30 days)
+- Works with iCloud Photo Library via Apple PhotoKit
+- Support: support@curatorapp.ch

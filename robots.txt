@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://curatorapp.ch/sitemap.xml

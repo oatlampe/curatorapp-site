@@ -5,10 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curator — Blog</title>
   <meta name="description" content="Notes on photo overload, decluttering your iPhone library, and building Curator.">
+  <link rel="canonical" href="https://curatorapp.ch/blog.html">
+
+  <!-- Social sharing (Open Graph + Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Curator">
+  <meta property="og:title" content="Curator — Blog">
+  <meta property="og:description" content="Notes on photo overload, decluttering your iPhone library, and building Curator.">
+  <meta property="og:url" content="https://curatorapp.ch/blog.html">
+  <meta property="og:image" content="https://curatorapp.ch/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Curator — Blog">
+  <meta name="twitter:description" content="Notes on photo overload, decluttering your iPhone library, and building Curator.">
+  <meta name="twitter:image" content="https://curatorapp.ch/assets/og-image.jpg">
+
   <link rel="icon" href="assets/icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Curator Blog",
+    "url": "https://curatorapp.ch/blog.html",
+    "description": "Notes on photo overload, decluttering your iPhone library, and building Curator.",
+    "publisher": { "@type": "Organization", "name": "Curator", "url": "https://curatorapp.ch/" }
+  }
+  </script>
   <style>
     /* ===== DESIGN TOKENS (shared across the site) ===== */
     :root {
@@ -115,14 +143,14 @@
 
   <!-- ===================== NAV ===================== -->
   <header class="nav">
-    <a class="brand" href="index.html">
-      <img src="assets/icon.svg" alt="Curator icon">
+    <a class="brand" href="/">
+      <img src="assets/icon.svg" alt="Curator icon" width="32" height="32">
       <span>Curator</span>
     </a>
     <nav class="nav-links">
       <a href="faq.html">FAQ</a>
       <a href="blog.html" aria-current="page">Blog</a>
-      <a href="index.html#download" class="cta">Get the app</a>
+      <a href="https://apps.apple.com/app/id6761866365" class="cta">Get the app</a>
     </nav>
   </header>
 
@@ -138,34 +166,31 @@
        its link. To add a post, copy a block, edit the metadata, and set href. -->
   <main class="posts">
 
+    <!-- When a post is published: turn the <div class="post"> back into
+         <a class="post" href="blog/its-slug.html"> and restore the
+         <span class="read-more">Read more →</span> line. -->
     <article>
-      <a class="post" href="#">
+      <div class="post">
         <div class="post-meta">
           <span class="tag">Behind the app</span>
           <span class="dot"></span>
-          <time datetime="2026-04-08">8 April 2026</time>
-          <span class="dot"></span>
-          <span>5 min read</span>
+          <span>Coming soon</span>
         </div>
         <h2>Why I built Curator</h2>
         <p>A solo developer's take on 22,000 photos, the quiet dread of a full camera roll, and what it took to build a tool that actually helps — without sending a single image to the cloud.</p>
-        <span class="read-more">Read more →</span>
-      </a>
+      </div>
     </article>
 
     <article>
-      <a class="post" href="#">
+      <div class="post">
         <div class="post-meta">
           <span class="tag">Guide</span>
           <span class="dot"></span>
-          <time datetime="2026-03-24">24 March 2026</time>
-          <span class="dot"></span>
-          <span>7 min read</span>
+          <span>Coming soon</span>
         </div>
         <h2>How to finally clean up your iPhone photo library</h2>
         <p>A practical, no-guilt walkthrough: where the clutter hides, how to clear duplicates and screenshots without losing the good ones, and a simple weekly habit that keeps things tidy.</p>
-        <span class="read-more">Read more →</span>
-      </a>
+      </div>
     </article>
 
   </main>

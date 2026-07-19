@@ -5,10 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curator — Photo Manager for iPhone</title>
   <meta name="description" content="Declutter your photo library and build the albums you've always wanted. All AI processing stays on your device. A one-time purchase, no subscription.">
+  <link rel="canonical" href="https://curatorapp.ch/">
+
+  <!-- Social sharing (Open Graph + Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Curator">
+  <meta property="og:title" content="Curator — Photo Manager for iPhone">
+  <meta property="og:description" content="Declutter your photo library and build the albums you've always wanted. On-device AI, one-time purchase, no subscription.">
+  <meta property="og:url" content="https://curatorapp.ch/">
+  <meta property="og:image" content="https://curatorapp.ch/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Curator — Clean, Create, Curate — Photo Manager for iPhone">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Curator — Photo Manager for iPhone">
+  <meta name="twitter:description" content="Declutter your photo library. On-device AI, one-time purchase, no subscription.">
+  <meta name="twitter:image" content="https://curatorapp.ch/assets/og-image.jpg">
+
   <link rel="icon" href="assets/icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://curatorapp.ch/#org",
+        "name": "Curator",
+        "url": "https://curatorapp.ch/",
+        "logo": { "@type": "ImageObject", "url": "https://curatorapp.ch/icon.png" },
+        "email": "support@curatorapp.ch",
+        "founder": { "@type": "Person", "name": "Oscar Lampe" },
+        "address": { "@type": "PostalAddress", "addressCountry": "CH" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://curatorapp.ch/#website",
+        "url": "https://curatorapp.ch/",
+        "name": "Curator",
+        "publisher": { "@id": "https://curatorapp.ch/#org" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Curator",
+        "operatingSystem": "iOS",
+        "applicationCategory": "MultimediaApplication",
+        "description": "Photo manager for iPhone. Declutter your library and build albums with on-device AI. One-time purchase, no subscription.",
+        "url": "https://curatorapp.ch/",
+        "installUrl": "https://apps.apple.com/app/id6761866365",
+        "offers": { "@type": "Offer", "price": "5.99", "priceCurrency": "USD" },
+        "screenshot": [
+          "https://curatorapp.ch/assets/screen-albums.webp",
+          "https://curatorapp.ch/assets/screen-clean.webp",
+          "https://curatorapp.ch/assets/screen-privacy.webp"
+        ],
+        "featureList": "Duplicate photo cleanup, similar-photo detection, automatic album grouping by trip and time, on-device AI, iCloud Photos support",
+        "publisher": { "@id": "https://curatorapp.ch/#org" }
+      }
+    ]
+  }
+  </script>
   <style>
     /* ============================================================
        DESIGN TOKENS  — change colours here, site-wide
@@ -35,6 +95,11 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
     html { scroll-behavior: smooth; }
 
@@ -386,12 +451,12 @@
   <div class="page">
 
     <!-- Blurred Musée d'Orsay backdrop — scoped to the hero, fades to black -->
-    <div class="hero-backdrop" aria-hidden="true"><img src="assets/musee.jpg" alt=""></div>
+    <div class="hero-backdrop" aria-hidden="true"><img src="assets/musee.jpg" alt="" width="1200" height="1600" fetchpriority="high"></div>
 
     <!-- ===================== NAV ===================== -->
     <header class="nav">
-      <a class="brand" href="index.html">
-        <img src="assets/icon.svg" alt="Curator icon">
+      <a class="brand" href="/">
+        <img src="assets/icon.svg" alt="Curator icon" width="32" height="32">
         <span>Curator</span>
       </a>
       <nav class="nav-links">
@@ -405,8 +470,8 @@
 
     <!-- ===================== HERO ===================== -->
     <main class="hero" id="top">
-      <img src="assets/icon.svg" alt="Curator app icon" class="hero-icon">
-      <h1>Curator</h1>
+      <img src="assets/icon.svg" alt="Curator app icon" class="hero-icon" width="148" height="148">
+      <h1>Curator<span class="sr-only"> — photo cleaner and album builder for iPhone</span></h1>
       <p class="pillars">Clean · Create · Curate</p>
       <p class="tagline">
         Get on top of your photo library.<br>
@@ -520,7 +585,7 @@
 
     <!-- ===================== SCREENSHOTS ===================== -->
     <section class="shots-section" id="screens">
-      <div class="shots-bg"><img src="assets/musee.jpg" alt=""></div>
+      <div class="shots-bg" aria-hidden="true"><img src="assets/musee.jpg" alt="" width="1200" height="1600" loading="lazy"></div>
       <div class="wrap">
         <p class="eyebrow reveal">A closer look</p>
         <h2 class="reveal" style="color: var(--text);">Curation, beautifully simple.</h2>
@@ -528,13 +593,13 @@
 
         <div class="phones">
           <figure class="phone side reveal">
-            <div class="phone-frame"><img src="assets/screen-albums.png" alt="Curator smart albums, pre-grouped by trip and time"></div>
+            <div class="phone-frame"><img src="assets/screen-albums.webp" alt="Curator smart albums, pre-grouped by trip and time" width="1000" height="2168" loading="lazy"></div>
           </figure>
           <figure class="phone mid reveal">
-            <div class="phone-frame"><img src="assets/screen-clean.png" alt="Curator Clean tab showing AI-picked items to remove and storage savings"></div>
+            <div class="phone-frame"><img src="assets/screen-clean.webp" alt="Curator Clean tab showing AI-picked items to remove and storage savings" width="1000" height="2168" loading="lazy"></div>
           </figure>
           <figure class="phone side reveal">
-            <div class="phone-frame"><img src="assets/screen-privacy.png" alt="Curator privacy screen — everything runs on your device"></div>
+            <div class="phone-frame"><img src="assets/screen-privacy.webp" alt="Curator privacy screen — everything runs on your device" width="1000" height="2168" loading="lazy"></div>
           </figure>
         </div>
       </div>
