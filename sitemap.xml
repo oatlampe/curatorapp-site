@@ -10,7 +10,13 @@
   </url>
   <url>
     <loc>https://curatorapp.ch/blog.html</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-07-20</lastmod>
+  </url>
+  <url>
+    <loc>https://curatorapp.ch/blog/clean-up-iphone-photo-library.html</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://curatorapp.ch/privacy.html</loc>

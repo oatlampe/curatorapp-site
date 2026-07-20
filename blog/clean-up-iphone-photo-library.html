@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Clean Up Your iPhone Photo Library — Curator</title>
+  <meta name="description" content="I cut 30,000 photos down to 22,000 by hand. Here's the order that actually works for cleaning up an iPhone photo library — and what Apple's tools miss.">
+  <link rel="canonical" href="https://curatorapp.ch/blog/clean-up-iphone-photo-library.html">
+
+  <!-- Social sharing (Open Graph + Twitter) -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Curator">
+  <meta property="og:title" content="How to Finally Clean Up Your iPhone Photo Library">
+  <meta property="og:description" content="I cut 30,000 photos down to 22,000 by hand. Here's the order that actually works for cleaning up an iPhone photo library — and what Apple's tools miss.">
+  <meta property="og:url" content="https://curatorapp.ch/blog/clean-up-iphone-photo-library.html">
+  <meta property="og:image" content="https://curatorapp.ch/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="article:published_time" content="2026-07-20">
+  <meta property="article:author" content="Oscar Lampe">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Finally Clean Up Your iPhone Photo Library">
+  <meta name="twitter:description" content="I cut 30,000 photos down to 22,000 by hand. Here's the order that actually works — and what Apple's built-in tools miss.">
+  <meta name="twitter:image" content="https://curatorapp.ch/assets/og-image.jpg">
+
+  <link rel="icon" href="../assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Finally Clean Up Your iPhone Photo Library",
+    "description": "I cut 30,000 photos down to 22,000 by hand. Here's the order that actually works for cleaning up an iPhone photo library — and what Apple's tools miss.",
+    "url": "https://curatorapp.ch/blog/clean-up-iphone-photo-library.html",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://curatorapp.ch/blog/clean-up-iphone-photo-library.html" },
+    "datePublished": "2026-07-20",
+    "dateModified": "2026-07-20",
+    "author": { "@type": "Person", "name": "Oscar Lampe" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Curator",
+      "url": "https://curatorapp.ch/",
+      "logo": { "@type": "ImageObject", "url": "https://curatorapp.ch/assets/icon.svg" }
+    },
+    "image": "https://curatorapp.ch/assets/og-image.jpg",
+    "isPartOf": { "@type": "WebSite", "url": "https://curatorapp.ch/", "name": "Curator" }
+  }
+  </script>
+  <style>
+    /* ===== DESIGN TOKENS (shared across the site) ===== */
+    :root {
+      --bg:         #0a0a0a;
+      --bg-raise:   #121110;
+      --text:       #e0dcd4;
+      --text-muted: #8a857e;
+      --accent:     #f2bf73;
+      --glow:       #d9a633;
+      --border:     #2a2724;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Source Sans 3', system-ui, sans-serif;
+      --maxw: 1120px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--text);
+      line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV (shared) ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(10,10,9,0.72);
+      backdrop-filter: blur(14px) saturate(1.1); -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      border-bottom: 1px solid rgba(42,39,36,0.55);
+    }
+    .brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .brand img { width: 32px; height: 32px; display: block; }
+    .brand span { font-family: var(--serif); font-size: 1.32rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2rem); }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a[aria-current] { color: var(--accent); }
+    .nav-links a.cta { color: var(--bg); background: var(--accent); padding: 0.45rem 1.05rem; border-radius: 8px; font-weight: 600; white-space: nowrap; transition: transform 0.15s, box-shadow 0.2s; }
+    .nav-links a.cta:hover { color: var(--bg); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(217,166,51,0.4); }
+
+    /* ===== POST HEADER ===== */
+    .page-head {
+      max-width: 780px; margin: 0 auto;
+      padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1.25rem, 5vw, 2rem) 1rem;
+      text-align: center;
+    }
+    .page-head .eyebrow {
+      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .page-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.1rem, 5.4vw, 3.1rem); line-height: 1.08; margin-bottom: 1rem; text-wrap: balance; }
+    .page-head .byline { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* ===== ARTICLE BODY =====
+       SECTION: prose column. Headings are question-shaped H2s; the first
+       sentence under each answers the question directly. */
+    .post-body {
+      max-width: 720px; margin: 2.5rem auto 0;
+      padding: 0 clamp(1.25rem, 5vw, 2rem);
+    }
+    .post-body p { font-size: 1.06rem; line-height: 1.75; color: #cfcac2; max-width: 68ch; }
+    .post-body p + p { margin-top: 1.05rem; }
+    .post-body h2 {
+      font-family: var(--serif); font-weight: 500;
+      font-size: clamp(1.45rem, 3.4vw, 1.85rem); line-height: 1.25;
+      margin: 2.8rem 0 0.9rem; text-wrap: balance;
+    }
+    .post-body h3 {
+      font-family: var(--sans); font-weight: 600; font-size: 1.05rem;
+      letter-spacing: 0.01em; color: var(--text); margin: 1.8rem 0 0.5rem;
+    }
+    .post-body a { color: var(--accent); text-underline-offset: 3px; }
+    .post-body strong { color: var(--text); font-weight: 600; }
+    .post-body ol, .post-body ul { margin: 1rem 0 0 1.15rem; max-width: 68ch; }
+    .post-body li { font-size: 1.06rem; line-height: 1.7; color: #cfcac2; margin-bottom: 0.6rem; }
+    .post-body li::marker { color: var(--accent); }
+    .post-body hr { border: none; border-top: 1px solid var(--border); margin: 2.8rem 0; }
+
+    .lede p { font-size: 1.16rem; color: var(--text); }
+
+    /* Pull-quote style aside */
+    .note {
+      margin: 1.9rem 0; padding: 1.15rem 1.35rem;
+      border-left: 2px solid var(--accent); border-radius: 0 10px 10px 0;
+      background: linear-gradient(90deg, rgba(242,191,115,0.06), transparent);
+    }
+    .note p { font-size: 1rem; color: var(--text-muted); }
+
+    /* Screenshot figure */
+    figure.shot { margin: 2.2rem 0; text-align: center; }
+    figure.shot img {
+      width: 100%; max-width: 420px; height: auto;
+      border: 1px solid var(--border); border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(217,166,51,0.14);
+    }
+    figure.shot figcaption {
+      margin-top: 0.85rem; font-size: 0.92rem; color: var(--text-muted);
+      max-width: 52ch; margin-left: auto; margin-right: auto; text-wrap: pretty;
+    }
+
+    /* ===== END-OF-POST STRIP ===== */
+    .contact-strip {
+      max-width: 720px; margin: 3.5rem auto 0; padding: 2.2rem clamp(1.5rem, 5vw, 2.2rem);
+      border: 1px solid var(--border); border-radius: 16px; background: var(--bg-raise);
+      text-align: center;
+    }
+    .contact-strip h2 { font-family: var(--serif); font-weight: 500; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .contact-strip p { color: var(--text-muted); margin-bottom: 1.2rem; max-width: 46ch; margin-left: auto; margin-right: auto; }
+    .contact-strip a.mail {
+      display: inline-block; color: var(--bg); background: var(--accent);
+      padding: 0.6rem 1.4rem; border-radius: 9px; font-weight: 600; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .contact-strip a.mail:hover { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(217,166,51,0.35); }
+    .back-link { display: block; max-width: 720px; margin: 2.2rem auto 0; padding: 0 clamp(1.25rem, 5vw, 2rem); }
+    .back-link a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .back-link a:hover { color: var(--accent); }
+
+    /* ===== FOOTER (shared) ===== */
+    .site-footer {
+      margin-top: clamp(3.5rem, 8vw, 6rem);
+      padding: 2.6rem clamp(1.25rem, 5vw, 2.5rem);
+      border-top: 1px solid var(--border); background: rgba(10,10,9,0.7);
+    }
+    .footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.6rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1.4rem; font-size: 0.9rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-meta { font-size: 0.85rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <a class="brand" href="/">
+      <img src="../assets/icon.svg" alt="Curator icon" width="32" height="32">
+      <span>Curator</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../faq.html">FAQ</a>
+      <a href="../blog.html" aria-current="page">Blog</a>
+      <a href="https://apps.apple.com/app/id6761866365" class="cta">Get the app</a>
+    </nav>
+  </header>
+
+  <!-- ===================== POST HEADER ===================== -->
+  <div class="page-head">
+    <p class="eyebrow">Guide</p>
+    <h1>How to Finally Clean Up Your iPhone Photo Library</h1>
+    <p class="byline">By Oscar Lampe · 20 July 2026 · 8 min read</p>
+  </div>
+
+  <!-- ===================== ARTICLE ===================== -->
+  <article class="post-body">
+
+    <div class="lede">
+      <p>Around Christmas 2025 I sat down to make a photo album. My son had just turned three, my daughter was nine months. We'd had Christmas at home, and before that a rare full-family trip to Tenerife — grandparents, aunt, uncle, cousins, all of us. I wanted small printed albums of those weeks. Something the kids could open and flip through now, because they love doing exactly that, and something they could look at in twenty years to see what they were like when they were this small.</p>
+    </div>
+
+    <p>I opened Photos, started scrolling, and gave up somewhere in the spring.</p>
+
+    <p>Thousands of near-identical shots. Half-started albums I'd never finished. No sense of where the good photos actually were. The album never got made, and the library kept growing.</p>
+
+    <p>Then I went at it properly. Over about two weeks that Christmas I cut the library from over 30,000 photos down to 22,000, entirely by hand. It worked, in the sense that the number went down. It also convinced me that nobody should have to do it that way, and by January I'd started building an app instead.</p>
+
+    <p>What follows is what those two weeks taught me: the order that works, what the built-in tools do and don't catch, and how to know when to stop.</p>
+
+    <h2>Why does an iPhone photo library get this bad?</h2>
+
+    <p>Because nothing in the system ever asks you to choose. Every other kind of clutter has a moment of reckoning — a drawer that won't shut, a wardrobe that's full. A photo library has no edge. iCloud quietly absorbs the overflow, and the only signal you ever get is a storage warning that arrives at the worst possible time.</p>
+
+    <p>Three habits do most of the damage. <strong>Taking the same photo several times</strong> — you fire off six shots of a toddler because one of them will be good, and then you keep all six. <strong>Screenshots</strong>, which arrive by the dozen and are almost never looked at again. And <strong>videos</strong>, which are invisible in the timeline but enormous on disk.</p>
+
+    <p>That last one surprises most people, including me. In my library, 1,033 videos account for roughly 40 GB — about a third of the whole thing, from under 5% of the items. Meanwhile my 518 screenshots, which <em>feel</em> like the mess, come to barely 1 GB. Screenshots are a tidiness problem. Videos are a storage problem. It's worth knowing which one you're actually trying to solve before you start.</p>
+
+    <h2>Where should you actually start?</h2>
+
+    <p>Work outward from the decisions that cost you nothing, and leave the emotional ones for last. In practice that means this order:</p>
+
+    <ol>
+      <li><strong>Duplicates and bursts.</strong> Photos that are visually the same shot — a re-import, a burst pair, two files a second apart. Almost always pairs rather than piles. There's no real decision to make: one goes, nothing is lost.</li>
+      <li><strong>Similar shots of the same moment.</strong> Not identical files — the six attempts at the same group photo, from slightly different angles and distances, where two people blinked and one is soft. This is where the real volume is, and where the actual judgement lives.</li>
+      <li><strong>Screenshots.</strong> Fast, low-stakes, and satisfying. Little storage payoff, but a big drop in visual noise.</li>
+      <li><strong>Large videos.</strong> Sort by size, not by date. A handful of long clips usually account for more space than thousands of photos.</li>
+      <li><strong>Everything else.</strong> Blurry shots, accidental pocket photos, the receipt you photographed in 2021.</li>
+    </ol>
+
+    <p>Steps one and two are worth separating, because most people — and most apps — treat them as the same job. They aren't. A duplicate is a file-level problem with an obvious answer. Six versions of the same moment is a taste problem, and it needs you to be looking at all six at once. Lumping them together is exactly what makes cleanup feel endless.</p>
+
+    <p>The reason the order matters at all is stamina. If you start at step five you'll spend forty minutes agonising over one photo of your kid and quit. If you start at step one you'll have cleared a thousand items before making a single hard call, and by the time the hard calls arrive you're warmed up and quicker at them.</p>
+
+    <div class="note">
+      <p>One rule I'd give anyone starting: don't try to finish in one sitting. This is a job for four or five twenty-minute passes, not a weekend. The library took years to accumulate; it does not need to be solved on a Sunday.</p>
+    </div>
+
+    <h2>What does Apple's built-in Duplicates tool catch — and what does it miss?</h2>
+
+    <p>Apple's Photos app has a Duplicates album (Albums → Utilities → Duplicates), and it's genuinely useful. It finds pixel-identical copies and lets you merge them, keeping the highest-quality version and combining the metadata. If you've never used it, use it — it's free and it's already on your phone.</p>
+
+    <p>Its limit is that it only sees photos that are <em>the same file</em>. In my 22,000-photo library it proposed around 600 items. That's 600 real wins for zero effort, and I'd take it every time.</p>
+
+    <p>What it doesn't catch is everything that's visually identical without being byte-identical: a photo and its re-import, two frames a second apart where nothing in the scene moved, the same image saved twice with different metadata. To your eye these are the same photo. To a file comparison they aren't. Looking for visual sameness rather than file sameness roughly triples the count — on my library it turns up 1,883 items instead of 600. Still mostly pairs, still nothing lost, just three times as many free wins.</p>
+
+    <p>And underneath that sits the much larger category Apple's tool was never trying to address.</p>
+
+    <h2>How do you choose between six photos of the same moment?</h2>
+
+    <p>The honest answer is that the hard part isn't choosing — it's not knowing what you're choosing <em>between</em>.</p>
+
+    <p>These aren't near-duplicates. They're the six goes you had at the same photo: everyone on the sofa, but from standing and then crouching, closer and then wider, one where your son is mid-blink and one where nobody is looking at the camera. Six genuinely different photographs of one moment, of which you want one, maybe two.</p>
+
+    <p>I tried several of the photo-cleaner apps on the App Store before building anything myself, and nearly all of them work the same way: one photo at a time, swipe left to delete, swipe right to keep. That's fine for fifty photos. At twenty thousand it becomes unbearable, and not because of the effort. It's because when a photo appears alone on screen, you have no idea whether it's one of two attempts or one of fifteen. So you keep it, just in case. You keep everything, just in case, and an hour of swiping removes almost nothing.</p>
+
+    <p>Seeing the whole group at once fixes it. Six shots side by side, with the sharpest one already marked, is a two-second decision — and a decision you can trust, because you can see exactly what you'd be giving up.</p>
+
+    <p>That's the part of the problem <a href="/">Curator</a> was really built for. Its Curator Picks feature recognises photos of the same scene even when they're not near-identical — different poses, different angles and distances, the same landscape shot four ways — and proposes keeping the best of each: in focus, eyes open, everyone smiling. On my library that comes to 10,953 suggested removals, around 48% of my photos and about 35 GB. I don't accept all of them; with photos of the kids I regularly keep one or two more than it suggests, which takes a tap. But the picks themselves are good, and reviewing a group takes a fraction of the time swiping through it would.</p>
+
+    <figure class="shot">
+      <img src="../assets/clean-tab-library-overview.webp"
+           alt="Curator's Clean tab showing a 110 GB iPhone photo library with 22,062 photos and 1,033 videos, and suggested removals of 10,953 items totalling 35 GB"
+           width="840" height="1821" loading="lazy" decoding="async">
+      <figcaption>My own library, unedited: 110 GB, 22,062 photos, 1,033 videos. I've deliberately left it uncleaned so the numbers in these screenshots stay real.</figcaption>
+    </figure>
+
+    <h2>Will deleting photos on my iPhone delete them from iCloud?</h2>
+
+    <p>If iCloud Photos is turned on, yes — your iPhone and iCloud are one synced library, so removing a photo removes it everywhere. This is the single biggest source of confusion in photo cleanup, and it's worth being clear about before you delete anything.</p>
+
+    <p>The safety net is that deletions don't vanish. They go to Recently Deleted, where they stay recoverable for 30 days on every device signed into the same account. That's your undo button, and it's a generous one: if you get overzealous on a Tuesday, you have until early August to change your mind. There's more detail on how this works in the <a href="../faq.html">Curator FAQ</a>.</p>
+
+    <h2>What about privacy — is it safe to give an app your whole library?</h2>
+
+    <p>It depends entirely on where the analysis happens, and that's a question worth asking of any app before you grant it access. Some photo tools upload your images to a server to process them. Some are vague about it in a privacy policy nobody reads. Your camera roll is the single most personal archive most people own, and "we take privacy seriously" is not an answer.</p>
+
+    <p>The other pattern worth watching for is the pricing. A surprising number of cleanup apps arrive with a free trial that converts to a <em>weekly</em> subscription — a model that works by catching people at a moment of storage panic. I found it hard to stomach, and it was part of why I built my own.</p>
+
+    <p>For what it's worth: Curator does all of its analysis on the device, operates no servers at all, and carries Apple's "Data Not Collected" label on its App Store listing. It's a one-time purchase, with no subscription of any kind.</p>
+
+    <h2>How long does this actually take?</h2>
+
+    <p>Doing it by hand, my two-week estimate was real — 30,000 down to 22,000, in evenings, and I never got to the harder half. With photos grouped and a keeper already suggested, the same kind of pass is a few sittings rather than a fortnight.</p>
+
+    <p>Analysing a large library does take time, since it's real work happening on your phone rather than on a server. Curator works through it month by month, most recent first, so you can start reviewing your latest photos within a minute or two while the older years are still being processed in the background. You're not sitting watching a progress bar.</p>
+
+    <p>Set the target low, though. Clearing duplicates and bursts is a quick win, not a dramatic one — on my library it's 1,883 photos out of 22,000, so call it 5 to 10% smaller. The bigger reduction comes from the similar-shot groups, and that's a job you can do in pieces over weeks. "Every photo justified" is not a goal anyone reaches, and you don't need it.</p>
+
+    <h2>What do you do once it's clean?</h2>
+
+    <p>Make the album. This is the part I nearly forgot, and it's the whole reason I started.</p>
+
+    <p>A cleaned-up library is not the prize. Nobody looks back fondly on a well-pruned camera roll. The prize is that the good photos are finally findable — that the Tenerife holiday exists as a hundred photos you'd actually want to show someone, rather than the five hundred I took that week and would never scroll through.</p>
+
+    <p>This is the part that surprised me when I built it. Once you've cleaned a stretch of your library, the album more or less already exists: the photos you chose to keep, grouped by trip and by time, are the album. Curator's Create tab proposes them for you on that basis — "Tenerife, December" arriving pre-sorted rather than as a blank album you have to fill by scrolling. You adjust which photos are in, rename it, publish it to your Apple Photos, and from there it can go straight to a printed book.</p>
+
+    <p>So when you've done a pass or two, pick one trip. Not the whole library — one trip. Make it into something you can hold. Mine sat undone for six months, and my kids have changed a lot in six months.</p>
+
+    <hr>
+
+    <p>Curator is a one-time-purchase iPhone app that cleans and curates your photo library entirely on your device. The free version works on the last 30 days of your library, which is enough to see how it behaves on your own photos. You can <a href="https://apps.apple.com/app/id6761866365">get it on the App Store</a>, or read more about <a href="/">how it works</a>.</p>
+
+  </article>
+
+  <!-- ===================== END STRIP ===================== -->
+  <section class="contact-strip">
+    <h2>Questions about your own library?</h2>
+    <p>I'm a one-person shop and I read every message.</p>
+    <a class="mail" href="mailto:support@curatorapp.ch">support@curatorapp.ch</a>
+  </section>
+
+  <p class="back-link"><a href="../blog.html">← All posts</a></p>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="mailto:support@curatorapp.ch">support@curatorapp.ch</a>
+      </div>
+      <div class="footer-meta">© 2026 Oat</div>
+    </div>
+  </footer>
+
+</body>
+</html>
