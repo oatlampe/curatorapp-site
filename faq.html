@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curator — Frequently Asked Questions</title>
-  <meta name="description" content="Answers about Curator: iCloud Photo Library, on-device AI, the one-time purchase, photo recovery, supported devices, and more.">
+  <meta name="description" content="Answers about Curator: making albums and printed photo books, on-device AI and privacy, iCloud Photos, the one-time purchase, and photo recovery.">
   <link rel="canonical" href="https://curatorapp.ch/faq.html">
 
   <!-- Social sharing (Open Graph + Twitter) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Curator">
   <meta property="og:title" content="Curator — Frequently Asked Questions">
-  <meta property="og:description" content="Answers about Curator: iCloud Photo Library, on-device AI, the one-time purchase, photo recovery, supported devices, and more.">
+  <meta property="og:description" content="Answers about Curator: making albums and printed photo books, on-device AI and privacy, iCloud Photos, the one-time purchase, and photo recovery.">
   <meta property="og:url" content="https://curatorapp.ch/faq.html">
   <meta property="og:image" content="https://curatorapp.ch/assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Curator — Frequently Asked Questions">
-  <meta name="twitter:description" content="Answers about Curator: on-device AI, one-time purchase, iCloud Photos, and more.">
+  <meta name="twitter:description" content="Answers about Curator: making albums and photo books, on-device AI, privacy, iCloud Photos, and the one-time purchase.">
   <meta name="twitter:image" content="https://curatorapp.ch/assets/og-image.jpg">
 
   <link rel="icon" href="assets/icon.svg">
@@ -33,7 +33,7 @@
     "@type": "WebPage",
     "name": "Curator — Frequently Asked Questions",
     "url": "https://curatorapp.ch/faq.html",
-    "description": "Answers about Curator: iCloud Photo Library, on-device AI, the one-time purchase, photo recovery, supported devices, and more.",
+    "description": "Answers about Curator: making albums and printed photo books, on-device AI and privacy, iCloud Photos, the one-time purchase, and photo recovery.",
     "isPartOf": { "@type": "WebSite", "url": "https://curatorapp.ch/", "name": "Curator" }
   }
   </script>
@@ -167,7 +167,7 @@
   <div class="page-head">
     <p class="eyebrow">FAQ</p>
     <h1>Frequently asked questions</h1>
-    <p>Everything about how Curator handles your photos, your privacy, and your purchase.</p>
+    <p>Everything about cleaning your library, building albums and photo books, privacy, and your purchase.</p>
   </div>
 
   <!-- ===================== FAQ LIST =====================
@@ -184,7 +184,15 @@
     </details>
 
     <details class="qa">
-      <summary>Will it delete my photos without asking?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <summary>Does deleting photos in Curator also remove them from iCloud?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>If iCloud Photo Library is turned on, yes — your iPhone and iCloud share one synced library, so a photo you remove is removed everywhere. It moves to "Recently Deleted" across your devices, where it stays recoverable for 30 days.</p>
+        <p>If iCloud Photo Library is off, deletions only affect the photos stored on that iPhone. Curator uses Apple's own Photos system either way, and never removes anything you haven't confirmed.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Will Curator delete my photos without asking?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
       <div class="answer">
         <p>No. Nothing is removed until you review and confirm it. Curator's suggestions are recommendations — you always make the final call on what to keep.</p>
         <p>When you do confirm, photos move to your iPhone's "Recently Deleted" album via iOS, where they stay recoverable for 30 days. Curator never bypasses that safety net.</p>
@@ -192,25 +200,33 @@
     </details>
 
     <details class="qa">
-      <summary>What's the difference between the free and paid versions?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-      <div class="answer">
-        <p>The free version lets you clean and organise photos taken in the last 30 days — enough to see exactly how Curator works on your own library.</p>
-        <p>A single one-time purchase ($5.99) unlocks your entire photo library, with no other limits. Same app, same features — the purchase simply removes the 30-day window.</p>
-      </div>
-    </details>
-
-    <details class="qa">
-      <summary>How does the AI work? Does it send my photos anywhere?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-      <div class="answer">
-        <p>All of it runs on your device. Curator uses a CLIP neural network to understand what's in each photo (for similarity and smart albums) and perceptual hashing to spot duplicates and bursts.</p>
-        <p>We don't operate any servers, so there is nowhere for your photos to be sent. No image data, thumbnails, or metadata ever leave your iPhone, and nothing is used to train AI.</p>
-      </div>
-    </details>
-
-    <details class="qa">
       <summary>Can I recover photos after deleting them in Curator?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
       <div class="answer">
-        <p>Yes, within 30 days. Deletions you confirm in Curator go to the iOS "Recently Deleted" album in the Photos app. You can restore anything from there for 30 days before iOS removes it permanently.</p>
+        <p>Yes, within 30 days. Deletions you confirm in Curator go to the iOS "Recently Deleted" album in the Photos app, where you can restore anything for 30 days before iOS removes it permanently.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>How does Curator create albums?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Curator's Create tab suggests albums for you, grouped by trip, place and time — so months of camera roll arrive pre-sorted instead of one endless scroll.</p>
+        <p>Open any suggestion to make it yours: change which photos are included and rename the album. When you're happy, publishing it saves the album to a dedicated "Curator" folder in your Apple Photos, right where you'd expect to find it.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Can I turn my albums into a printed photo book?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Yes. Once you've published an album, the Curate tab's "Print" button hands it off to <a href="https://www.journiprint.com/" target="_blank" rel="noopener">Journi Print</a>, a specialist photo-book service. It pre-arranges a layout from your album, which you can then customise before ordering.</p>
+        <p>Printing and pricing are handled by Journi Print. Support for more print providers may come in the future.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>How is Curator different from the iPhone's built-in Duplicates tool?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Apple's Photos app can merge exact duplicates, which is a good start. Curator goes further: it also finds near-duplicates and burst shots that aren't pixel-identical, flags screenshots and space-hungry videos, and — beyond cleanup — builds trip-and-time albums and hands them off for printing.</p>
+        <p>It's the difference between removing a few obvious copies and actually getting on top of your whole library.</p>
       </div>
     </details>
 
@@ -222,22 +238,52 @@
     </details>
 
     <details class="qa">
+      <summary>Does Curator send my photos anywhere?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>No. Every part of Curator runs on your device. It uses a CLIP neural network to understand what's in each photo (for similar-photo grouping and smart albums) and perceptual hashing to spot duplicates and bursts — all locally.</p>
+        <p>We don't operate any servers, so there is nowhere for your photos to go. No image data, thumbnails, or metadata ever leave your iPhone, and nothing is used to train AI. Because it all runs on-device, Curator even works in airplane mode.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Do I need to create an account to use Curator?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>No. There's no account, no sign-up and no login. Download the app and start — Curator works with the photo library already on your iPhone, and there's no profile for us to hold, because we don't collect one.</p>
+      </div>
+    </details>
+
+    <details class="qa">
       <summary>Is there a subscription, or is it a one-time purchase?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
       <div class="answer">
-        <p>It's a one-time purchase. The unlock is a permanent, non-consumable in-app purchase ($5.99) — pay once and it's yours. There is no subscription and no recurring charge of any kind.</p>
+        <p>It's a one-time purchase. The unlock is a permanent, non-consumable in-app purchase — pay once and it's yours. There is no subscription and no recurring charge of any kind. You'll see the exact price for your country on the App Store.</p>
       </div>
     </details>
 
     <details class="qa">
-      <summary>What iPhone models and iOS versions does Curator support?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <summary>What does the free version include?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
       <div class="answer">
-        <p>Curator runs on iPhone with a recent version of iOS. Because the AI analysis runs locally, a newer device will scan large libraries faster — but the app is designed to work comfortably across current iPhones.</p>
-        <p>Exact version requirements are listed on the App Store listing at launch.</p>
+        <p>The free version lets you clean and organise photos from the last 30 days — the full Curator experience, scoped to a recent slice of your library so you can see exactly how it works on your own photos.</p>
+        <p>The one-time purchase simply removes that 30-day window and unlocks your entire library. Same app, same features.</p>
       </div>
     </details>
 
     <details class="qa">
-      <summary>I bought Curator on one device — can I use it on another?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <summary>Can I get a refund?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Refunds are handled by Apple, since every App Store purchase goes through them. You can request one through Apple's standard App Store refund process.</p>
+        <p>If something isn't working right, email us first at <a href="mailto:support@curatorapp.ch">support@curatorapp.ch</a> — we'd like the chance to help.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>What iPhone and iOS version do I need?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+      <div class="answer">
+        <p>Curator requires iOS 17.0 or later, running on any iPhone that supports it. Because the AI analysis runs locally, a newer iPhone will scan large libraries faster — but the app is built to work comfortably across supported devices.</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>Can I use Curator on more than one iPhone?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
       <div class="answer">
         <p>Yes. The purchase is tied to your Apple Account, not a single device. Install Curator on another iPhone signed in with the same Apple Account and tap the restore button to unlock it again — at no extra cost.</p>
       </div>
